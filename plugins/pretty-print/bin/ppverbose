@@ -1,0 +1,25 @@
+#!/usr/bin/env zsh
+#
+# Pretty Print helper function that will only output messages if verbose is true.
+#
+# Author:
+#   Larry Gordon
+#
+# Usage:
+#   $ ppblue "foo"
+#
+# License:
+#   The MIT License (MIT) <http://psyrendust.mit-license.org/2014/license.html>
+# ------------------------------------------------------------------------------
+
+if [[ -n $ALF_PRETTY_PRINT_VERBOSE ]]; then
+  if [[ $# < 2 ]]; then
+    ppblue "$1"
+  else
+    ppblue -i "$1: "
+    shift
+    pplightblue "$@"
+  fi
+else
+  printf '\033[0;32m%s\033[0m' "▍"
+fi

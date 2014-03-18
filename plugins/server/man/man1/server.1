@@ -1,0 +1,81 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "SERVER" "1" "April 2014" "" ""
+.
+.SH "NAME"
+\fBserver\fR \- Start an HTTP server and open the specified file (or current directory) with the default browser, optionally specifying the port
+.
+.SH "SYNOPSIS"
+\fBserver\fR [\fB\-p port\fR] [\fB\-f file\fR]
+.
+.SH "DESCRIPTION"
+Start an HTTP server and open the specified file (or current directory) with the default browser, optionally specifying the port\. If a port is not specified, then set the default to port 8000\.
+.
+.TP
+\fB\-p\fR
+Port number\.
+.
+.TP
+\fB\-f\fR
+File to open with the server\.
+.
+.TP
+\fB\-\-help\fR
+Display this help and exit\.
+.
+.SH "EXAMPLES"
+Serve a file named \fBfoobar\.html\fR:
+.
+.IP "" 4
+.
+.nf
+
+server \-f foobar\.html
+.
+.fi
+.
+.IP "" 0
+.
+.P
+You can optionally change the \fBport\fR:
+.
+.IP "" 4
+.
+.nf
+
+server \-p 9000 \-f foobar\.html
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Serve the current directory using port \fB9999\fR:
+.
+.IP "" 4
+.
+.nf
+
+server \-p 9999
+.
+.fi
+.
+.IP "" 0
+.
+.SH "AUTHOR"
+.
+.nf
+
+Written by Larry Gordon
+.
+.fi
+.
+.SH "COPYRIGHT"
+.
+.nf
+
+The MIT License (MIT) <http://psyrendust\.mit\-license\.org/2014/license\.html>
+.
+.fi
+

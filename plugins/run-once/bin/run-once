@@ -1,0 +1,20 @@
+#!/usr/bin/env zsh
+#
+# Run any post-update scripts if they exist.
+#
+# Author:
+#   Larry Gordon
+#
+# License:
+#   The MIT License (MIT) <http://psyrendust.mit-license.org/2014/license.html>
+# ------------------------------------------------------------------------------
+
+for alf_run_once in $(ls "$ALF_RUN_ONCE/"); do
+  source "$ALF_RUN_ONCE/$alf_run_once"
+  # Sourcing helper script to call all procedure functions in this script
+  # ------------------------------------------------------------------------------
+  if [[ -s "$ALF_SRC_TOOLS/alf-fn-init.zsh" ]]; then
+    source "$ALF_SRC_TOOLS/alf-fn-init.zsh" "$ALF_RUN_ONCE/$alf_run_once"
+  fi
+done
+unset alf_run_once

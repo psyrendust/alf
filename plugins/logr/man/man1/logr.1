@@ -1,0 +1,104 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "LOGR" "1" "April 2014" "" ""
+.
+.SH "NAME"
+\fBlogr\fR \- logfile helper function
+.
+.SH "SYNOPSIS"
+\fBlogr\fR \fINAMESPACE\fR \fIMESSAGE\fR
+.
+.br
+\fBlogr\fR [\fB\-l\fR | \fB\-e\fR] \fINAMESPACE\fR \fIMESSAGE\fR
+.
+.br
+\fBlogr\fR [\fB\-d\fR] \fINAMESPACE\fR
+.
+.SH "DESCRIPTION"
+Output to a logfile located in \fB$HOME/\.alf/logr\fR\. The \fINAMESPACE\fR argument is appended to the name of the logfile\.
+.
+.TP
+\fB\-l\fR
+Append a \fIMESSAGE\fR to a logfile for a given \fINAMESPACE\fR\.
+.
+.TP
+\fB\-e\fR
+Append a \fIMESSAGE\fR to an error logfile for a given \fINAMESPACE\fR\.
+.
+.TP
+\fB\-d\fR
+Delete the log and error logfile for a given \fINAMESPACE\fR\.
+.
+.TP
+\fB\-\-help\fR
+Display this help and exit\.
+.
+.SH "EXAMPLES"
+Log a message to a logfile named \fBfoobar\fR (saves to \fB$HOME/\.alf/logr/foobar\.log\fR):
+.
+.IP "" 4
+.
+.nf
+
+logr \-l foobar "Logging foobar message"
+.
+.fi
+.
+.IP "" 0
+.
+.P
+You can optionally choose to pass no \fBOPTION\fR which is equivalent to \fBlogr \-l\fR:
+.
+.IP "" 4
+.
+.nf
+
+logr foobar "Logging foobar message"
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Log an error message to a logfile named \fBfoobar\fR (saves to \fB$HOME/\.alf/logr/error\-foobar\.log\fR):
+.
+.IP "" 4
+.
+.nf
+
+logr \-e foobar "Logging foobar message"
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Delete all \fBfoobar\fR logfiles (deletes \fB$HOME/\.alf/logr/foobar\.log\fR and \fB$HOME/\.alf/logr/error\-foobar\.log\fR):
+.
+.IP "" 4
+.
+.nf
+
+logr \-d foobar
+.
+.fi
+.
+.IP "" 0
+.
+.SH "AUTHOR"
+.
+.nf
+
+Written by Larry Gordon
+.
+.fi
+.
+.SH "COPYRIGHT"
+.
+.nf
+
+The MIT License (MIT) <http://psyrendust\.mit\-license\.org/2014/license\.html>
+.
+.fi
+

@@ -1,0 +1,39 @@
+# Numerous always-ignore extensions
+*.diff
+*.err
+*.orig
+*.log
+*.rej
+*.swo
+*.swp
+*.vi
+*~
+*.sass-cache
+
+# OS or Editor folders
+.DS_Store
+.cache
+.project
+.settings
+.tmproj
+nbproject
+Thumbs.db
+npm-debug.log
+
+# Folders to ignore
+.hg
+.svn
+.CVS
+intermediate
+.idea
+intermediate
+temp
+tmp
+.tmp
+node_modules
+_drafts/
+_site/
+
+# build script local files
+build/buildinfo.properties
+build/config/buildinfo.properties

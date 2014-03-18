@@ -1,0 +1,61 @@
+#!/usr/bin/env zsh
+#
+# Start an HTTP server from a directory, optionally specifying the port.
+#
+# Author:
+#   Larry Gordon
+#
+# Usage:
+#   $ server -h
+#
+# License:
+#   The MIT License (MIT) <http://psyrendust.mit-license.org/2014/license.html>
+# ------------------------------------------------------------------------------
+
+local bin_dir="$(cd -P ${0:h} && pwd)"
+local man_dir="$(cd -P ${bin_dir:h}/man && pwd)"
+local arg_port="8000"
+local arg_file=""
+local man_file="$man_dir/man1/server.1"
+while getopts "p:f:h" opt; do
+  case $opt in
+    h)  local show_man=1 ;;
+    p)  arg_port="$OPTARG" ;;
+    f)  arg_file="$OPTARG" ;;
+    *)  local show_man=1 ;;
+  esac
+done
+
+if [[ -n $show_man ]]; then
+  if [[ -f "$man_file" ]]; then
+    man "$man_file"
+  fi
+  return
+fi
+
+python -c $'import sys;
+import os;
+import SimpleHTTPServer;
+args = sys.argv[1:]
+print "args: %s" % args
+
+port = int(args[0])
+args = args[1:]
+
+# Get a file to serve, if specified.
+file = args[0] if len(args) else ""
+
+# If not in an SSH session, open the URL in the default handler.
+if not "SSH_TTY" in os.environ:
+  os.system("open 'http://localhost:%d/%s'" % (port, file))
+
+# Set the default Content-Type to `text/plain` instead of `application/octet-stream`
+map = SimpleHTTPServer.SimpleHTTPRequestHandler.extensions_map;
+map[""] = "text/plain";
+
+# And serve everything as UTF-8 (although not technically correct, this doesn’t break anything for binary files)
+for key, value in map.items():
+  map[key] = value + "; charset=UTF-8";
+
+sys.argv = [sys.argv[0], port]
+SimpleHTTPServer.test();' "$arg_port" "$arg_file"

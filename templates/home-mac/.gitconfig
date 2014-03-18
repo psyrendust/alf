@@ -1,0 +1,16 @@
+#
+# OS X Git configuration
+#
+# Authors:
+#   Larry Gordon
+#
+# License:
+#   The MIT License (MIT) <http://psyrendust.mit-license.org/2014/license.html>
+# ------------------------------------------------------------------------------
+#
+[include]
+  path = ~/.alf/config/git/user.gitconfig
+  path = ~/.alf/config/git/core.gitconfig
+  path = ~/.alf/config/git/diff.gitconfig
+  path = ~/.alf/config/git/work.gitconfig
+  path = ~/.alf/config/git/custom-mac.gitconfig

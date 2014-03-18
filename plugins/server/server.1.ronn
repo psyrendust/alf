@@ -1,0 +1,42 @@
+server(1) -- Start an HTTP server and open the specified file (or current directory) with the default browser, optionally specifying the port
+=============================================================================================================================================
+
+## SYNOPSIS
+
+`server` [`-p port`] [`-f file`]  
+
+## DESCRIPTION
+
+Start an HTTP server and open the specified file (or current directory) with the default browser, optionally specifying the port. If a port is not specified, then set the default to port 8000.
+
+* `-p`:
+  Port number.
+
+* `-f`:
+  File to open with the server.
+
+* `--help`:
+  Display this help and exit.
+
+## EXAMPLES
+
+Serve a file named `foobar.html`:
+
+    server -f foobar.html
+
+You can optionally change the `port`:
+
+    server -p 9000 -f foobar.html  
+
+
+Serve the current directory using port `9999`:
+
+    server -p 9999
+
+## AUTHOR
+
+    Written by Larry Gordon
+
+## COPYRIGHT
+
+    The MIT License (MIT) <http://psyrendust.mit-license.org/2014/license.html>

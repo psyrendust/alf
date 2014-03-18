@@ -1,0 +1,20 @@
+#
+# Core Git config settings.
+#
+# Author:
+#   Larry Gordon
+#
+# License:
+#   The MIT License (MIT) <http://psyrendust.mit-license.org/2014/license.html>
+# ------------------------------------------------------------------------------
+
+[core]
+  editor = subl -n -w
+  excludesfile = ~/.gitignore_global
+  filemode = false
+  hidedotfiles = false
+  trustctime = false
+[color]
+  ui = always
+[http]
+  sslVerify = false

@@ -1,0 +1,52 @@
+logr(1) -- logfile helper function
+=====================================
+
+## SYNOPSIS
+
+`logr` <NAMESPACE> <MESSAGE>  
+`logr` [`-l` | `-e`] <NAMESPACE> <MESSAGE>  
+`logr` [`-d`] <NAMESPACE>  
+
+## DESCRIPTION
+
+Output to a logfile located in `$HOME/.alf/logr`. The <NAMESPACE> argument is appended to the name of the logfile.
+
+* `-l`:
+  Append a <MESSAGE> to a logfile for a given <NAMESPACE>.
+
+* `-e`:
+  Append a <MESSAGE> to an error logfile for a given <NAMESPACE>.
+
+* `-d`:
+  Delete the log and error logfile for a given <NAMESPACE>.
+
+* `--help`:
+  Display this help and exit.
+
+## EXAMPLES
+
+Log a message to a logfile named `foobar` (saves to `$HOME/.alf/logr/foobar.log`):
+
+    logr -l foobar "Logging foobar message"  
+
+You can optionally choose to pass no `OPTION` which is equivalent to `logr -l`:
+
+    logr foobar "Logging foobar message"  
+
+
+Log an error message to a logfile named `foobar` (saves to `$HOME/.alf/logr/error-foobar.log`):
+
+    logr -e foobar "Logging foobar message"  
+
+
+Delete all `foobar` logfiles (deletes `$HOME/.alf/logr/foobar.log` and `$HOME/.alf/logr/error-foobar.log`):
+
+    logr -d foobar  
+
+## AUTHOR
+
+    Written by Larry Gordon
+
+## COPYRIGHT
+
+    The MIT License (MIT) <http://psyrendust.mit-license.org/2014/license.html>

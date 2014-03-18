@@ -1,0 +1,16 @@
+init.zsh
+plugins/alf-aliases/init.zsh
+plugins/alf-cygwin-gem/init.zsh
+plugins/alf-cygwin-ln/init.zsh
+plugins/alf-log/init.zsh
+plugins/alf-pretty-print/init.zsh
+plugins/alf-process/init.zsh
+plugins/alf-sublime-text/init.zsh
+plugins/alf-sugar/init.zsh
+plugins/alf-system/init.zsh
+plugins/alf-utilities/init.zsh
+templates/home/.zlogin
+templates/home/.zprofile
+templates/home/.zshenv
+templates/home/.zshrc
+tools/post-update.zsh

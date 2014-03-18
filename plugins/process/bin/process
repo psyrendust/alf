@@ -1,0 +1,42 @@
+#!/usr/bin/env zsh
+#
+# Processing state helper functions.
+#
+# Author:
+#   Larry Gordon
+#
+# Usage:
+#   $ process -[r|s|x] [namespace]
+#
+# License:
+#   The MIT License (MIT) <http://psyrendust.mit-license.org/2014/license.html>
+# ------------------------------------------------------------------------------
+
+# Returns true if $ALF_PROCESS/[namespace] file exists
+__process-is-running() {
+  if [[ -s "$ALF_PROCESS/${1}" ]]; then
+    echo 1
+  fi
+}
+
+# Sets the processing state to true for a given namespace
+__process-start() {
+  echo "$(date)" > "$ALF_PROCESS/${1}"
+}
+
+# Sets the processing state to false for a given namespace
+__process-stop() {
+  if [[ -s "$ALF_PROCESS/${1}" ]]; then
+    rm "$ALF_PROCESS/${1}"
+  fi
+}
+
+while getopts ":i:s:x" opt; do
+  [[ $opt == "i" ]] && option=1 && break
+  [[ $opt == "s" ]] && option=2 && break
+  [[ $opt == "x" ]] && option=3 && break
+done
+shift
+[[ $option == 1 ]] && __process-is-running "$1"
+[[ $option == 2 ]] && __process-start "$1"
+[[ $option == 3 ]] && __process-stop "$1"

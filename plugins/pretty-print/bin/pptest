@@ -1,0 +1,34 @@
+#!/usr/bin/env zsh
+#
+# Test the output of all colors pretty print colors.
+#
+# Author:
+#   Larry Gordon
+#
+# Usage:
+#   $ ppblue "foo"
+#
+# License:
+#   The MIT License (MIT) <http://psyrendust.mit-license.org/2014/license.html>
+# ------------------------------------------------------------------------------
+
+pppurple " " "    Pretty Print Color Based Aliases"
+pppurple "------------------------------------"
+for ppfile in $(ls "$ALF_PLUGINS/alf-pretty-print/bin/"); do
+  if [ $ppfile == "pptest" ] || [ $ppfile == "ppverbose"] || [ -L $ppfile ]; then
+    continue
+  fi
+  eval "$ppfile \"$ppfile - testing pretty print\" | awk '{ printf \"%20s %s %s %s %s\\n\", \$1, \$2, \$3, \$4, \$5}'"
+done
+pppurple " " " " "   Pretty Print Status Based Aliases"
+pppurple "------------------------------------"
+ppsuccess  "ppsuccess  - testing pretty print" | awk '{ printf "%20s %s %s %s %s\n", $1, $2, $3, $4, $5}'
+ppinfo     "ppinfo     - testing pretty print" | awk '{ printf "%20s %s %s %s %s\n", $1, $2, $3, $4, $5}'
+ppwarning  "ppwarning  - testing pretty print" | awk '{ printf "%20s %s %s %s %s\n", $1, $2, $3, $4, $5}'
+ppdanger   "ppdanger   - testing pretty print" | awk '{ printf "%20s %s %s %s %s\n", $1, $2, $3, $4, $5}'
+ppemphasis "ppemphasis - testing pretty print" | awk '{ printf "%20s %s %s %s %s\n", $1, $2, $3, $4, $5}'
+pppurple " " " " "        Pretty Print Inline Printing"
+pppurple "------------------------------------"
+for ppfile in $(ls "$ALF_PLUGINS/alf-pretty-print/bin/"); do
+  eval "$ppfile -i \"$ppfile \""
+done

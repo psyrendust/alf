@@ -1,0 +1,69 @@
+alf-framework(1) -- Functions to help manage frameworks within Alf
+==================================================================
+
+## SYNOPSIS
+
+`alf framework install` [`-u` `url`] [`-s` `file_to_source`]  
+`alf framework uninstall` <`short_name`>  
+`alf framework update` <`short_name`>  
+`alf framework --help`
+
+## DESCRIPTION
+
+Functions to help manage frameworks within Alf.
+
+* `install` [`-u` `url`] [`-s` `file_to_source`]:
+  Install a framework into Alf.
+    - `-u`:
+      Accepts a valid .git url to install from.
+    - `-s`:
+      Accepts a file to source for interactive logins.
+
+* `uninstall` `short_name`:
+  Uninstall a framework from Alf.
+    - `short_name`:
+      Accepts a partial name fragment that is used to grep against the `url` that was used during installation. It will uninstall the first match that is found.
+
+* `update` `short_name`:
+  Update an existing framework.
+    - `short_name`:
+      Accepts a partial name fragment that is used to grep against the `url` that was used during installation. It will update the first match that is found.
+
+* `--help`:
+  Display this help and exit.
+
+## EXAMPLES
+
+Install Oh My Zsh:
+
+    alf framework install git@github.com:robbyrussell/oh-my-zsh.git oh-my-zsh.sh 
+
+Install Prezto:
+
+    alf framework install git@github.com:sorin-ionescu/prezto.git init.zsh  
+
+Install zsh-syntax-highlighting:
+
+    alf framework install git@github.com:zsh-users/zsh-syntax-highlighting.git  
+
+You can optionally choose to pass no `OPTION` which is equivalent to `alf-log-l`:
+
+    alf log foobar "Logging foobar message"  
+
+
+Log an error message to a logfile named `foobar` (saves to `$HOME/.alf/logs/error-foobar.log`):
+
+    alf log -e foobar "Logging foobar message"  
+
+
+Delete all `foobar` logfiles (deletes `$HOME/.alf/logs/foobar.log` and `$HOME/.alf/logs/error-foobar.log`):
+
+    alf log -d foobar  
+
+## AUTHOR
+
+    Written by Larry Gordon
+
+## COPYRIGHT
+
+    The MIT License (MIT) <http://psyrendust.mit-license.org/2014/license.html>

@@ -1,0 +1,96 @@
+#!/usr/bin/env zsh
+#
+# Maps Unix "ln" to Windows "mklink" command in cygwin.
+#
+# Author:
+#   Larry Gordon
+#
+# Synopsys
+#     Creates a symbolic link if TARGET is a directory
+#     ln -s TARGET LINK_NAME      >> cmd /c mklink /D "LINK_NAME" "TARGET"
+#     ln -sf TARGET LINK_NAME     >> rm LINK_NAME && cmd /c mklink /D "LINK_NAME" "TARGET"
+#
+#     Creates a symbolic link if TARGET is a file
+#     ln -s TARGET LINK_NAME      >> cmd /c mklink "LINK_NAME" "TARGET"
+#     ln -sf TARGET LINK_NAME     >> rm LINK_NAME && cmd /c mklink "LINK_NAME" "TARGET"
+#
+#     Creates a hard link instead of a symbolic link
+#     ln -P TARGET LINK_NAME      >> cmd /c mklink /H "LINK_NAME" "TARGET"
+#     ln -P TARGET LINK_NAME      >> rm LINK_NAME && cmd /c mklink /H "LINK_NAME" "TARGET"
+#
+#
+# License:
+#   The MIT License (MIT) <http://psyrendust.mit-license.org/2014/license.html>
+# ------------------------------------------------------------------------------
+if [[ -n $PLATFORM_IS_CYGWIN ]]; then
+  local template_bat="${0:h:h}/templates/ln.bat"
+  local template_vbs="${0:h:h}/templates/ln.vbs"
+  while getopts "bdfiLnPrsStTv" opts; do
+    [[ $opts == "s" ]] && opt_s=1       # -s: make symbolic links instead of hard links
+    [[ $opts == "f" ]] && opt_f=1       # -f: remove existing destination files
+    [[ $opts == "P" ]] && opt_P=1       # -P: make hard links directly to symbolic links
+  done
+  if [[ -n $opt_s ]] || [[ -n $opt_f ]] || [[ -n $opt_P ]]; then
+    shift
+  fi
+  local arg_target=$1
+  local arg_link_name=$2
+  if [[ -n $opt_s ]] || [[ -n $opt_P ]]; then
+    if [[ -a $arg_target ]]; then
+      if [[ -n $arg_link_name ]]; then
+        # Remove the arg_link_name so that we can replace it
+        [[ -n $opt_f ]] && rm -rf "$arg_link_name"
+        if [[ -d $arg_target ]]; then
+          local link_type="D"
+        elif [[ -n $opt_P ]]; then
+          local link_type="H"
+        fi
+      fi
+      if [[ -d "$ALF_SYMLINK" ]]; then
+        local symlink_loc="$ALF_SYMLINK"
+      else
+        local symlink_loc="${0:h:h}/.tmp"
+      fi
+      # Ensure our temp directory is present
+      mkdir -p "$symlink_loc"
+      # Get basename without extension to use as a namespace
+      local namespace="${arg_link_name:t:r}"
+      # Convert "/" to "\\"
+      local target=$(cygpath -ma ${arg_target} | sed "s/\//\\\\/g")
+      local link_name=$(cygpath -ma ${arg_link_name} | sed "s/\//\\\\/g")
+      # Create bat and vbs paths
+      local symlink_bat="$symlink_loc/$namespace.bat"
+      local symlink_vbs="$symlink_loc/$namespace.vbs"
+      # Create path to launch vbs
+      local cygwin_bat=$(cygpath -ma ${symlink_bat} | sed "s/\//\\\\/g")
+
+      # Force copy templates and keep all attributes
+      cp -af "$template_bat" "$symlink_bat"
+      cp -af "$template_vbs" "$symlink_vbs"
+
+      # Create the Batch file contents that will call mklink
+      printf "%s" "cmd /c mklink" >> "$symlink_bat"
+      if [[ -n $link_type ]]; then
+        printf " /%s" "$link_type" >> "$symlink_bat"
+      fi
+      printf " \"%s\" \"%s\"" "$link_name" "$target" >> "$symlink_bat"
+
+      # Create the VBS file contents to launch the Batch file
+      printf "%s \"%s\" %s" "WinScriptHost.Run Chr(34) &" "$cygwin_bat" "& Chr(34), 0" >> "$symlink_vbs"
+      printf "%s" "Set WinScriptHost = Nothing" >> "$symlink_vbs"
+
+      # Create the symlink and run it in the background
+      {
+        cygstart $symlink_vbs
+        sleep 1
+        rm "$symlink_vbs"
+        rm "$symlink_bat"
+      } &!
+    fi
+  else
+    env ln $@
+  fi
+else
+  # This not cygwin so just use the environment ln command
+  env ln $@
+fi

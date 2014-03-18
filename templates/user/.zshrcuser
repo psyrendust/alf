@@ -1,0 +1,23 @@
+#!/usr/bin/env zsh
+#
+# Define custom Alf aliases, functions, shell options, and
+# key bindings from your own user repo.
+#
+# This is yours to play with. You can customize this as you wish.
+# If you choose, you can override anything that was configured in
+# the list below with the contents of this file.
+#
+# Author:
+#   Larry Gordon
+#
+# Execution Order
+#   https://github.com/psyrendust/alf/templates/home
+#
+# License:
+#   The MIT License (MIT) <http://psyrendust.mit-license.org/2014/license.html>
+# ------------------------------------------------------------------------------
+#
+# $HOME/.zshrc
+# $HOME/.zshrcwork
+# $HOME/.zshrcuser
+#

@@ -1,0 +1,85 @@
+#!/usr/bin/env zsh
+#
+# Print to stdout with pretty colors!
+#
+# Author:
+#   Larry Gordon
+#
+# Usage:
+#   $ pprint [[option] <string>]
+#
+# License:
+#   The MIT License (MIT) <http://psyrendust.mit-license.org/2014/license.html>
+# ------------------------------------------------------------------------------
+
+# Color references: numeric-sort
+# ----------------------------------------------------------
+# -k = Black       0;30m      -K = Dark Gray      1;30m
+# -r = Red         0;31m      -R = Light Red      1;31m
+# -g = Green       0;32m      -G = Light Green    1;32m
+# -y = Yellow      0;33m      -Y = Light Yellow   1;33m
+# -b = Blue        0;34m      -B = Light Blue     1;34m
+# -m = Magenta     0;35m      -M = Light Magenta  1;35m
+# -c = Cyan        0;36m      -C = Light Cyan     1;36m
+# -w = Light Gray  0;37m      -W = White          1;37m
+# -n = Newline     \n
+
+
+# Color references: alpha-sort
+# ----------------------------------------------------------
+# -k = Black          0;30m
+# -b = Blue           0;34m
+# -y = Yellow         0;33m
+# -c = Cyan           0;36m
+# -K = Dark Gray      1;30m
+# -g = Green          0;32m
+# -B = Light Blue     1;34m
+# -C = Light Cyan     1;36m
+# -w = Light Gray     0;37m
+# -G = Light Green    1;32m
+# -M = Light Magenta  1;35m
+# -R = Light Red      1;31m
+# -m = Magenta        0;35m
+# -r = Red            0;31m
+# -W = White          1;37m
+# -y = Yellow         1;33m
+
+main() {
+  color_start="\033["
+  color_end="\033[0m"
+  print_str=""
+  while getopts "k:r:g:y:b:m:c:w:K:R:G:Y:B:M:C:W:n" opt; do
+    print_str+=$color_start
+    newline=" "
+    case $opt in
+      k)  print_str+="0;30m" ;;
+      r)  print_str+="0;31m" ;;
+      g)  print_str+="0;32m" ;;
+      y)  print_str+="0;33m" ;;
+      b)  print_str+="0;34m" ;;
+      m)  print_str+="0;35m" ;;
+      c)  print_str+="0;36m" ;;
+      w)  print_str+="0;37m" ;;
+      K)  print_str+="1;30m" ;;
+      R)  print_str+="1;31m" ;;
+      G)  print_str+="1;32m" ;;
+      Y)  print_str+="1;33m" ;;
+      B)  print_str+="1;34m" ;;
+      M)  print_str+="1;35m" ;;
+      C)  print_str+="1;36m" ;;
+      W)  print_str+="1;37m" ;;
+      n)  newline="\n" ;;
+    esac
+    print_str+="$OPTARG"
+    print_str+="$color_end"
+    print_str+="$newline"
+  done
+  if [[ ${#newline} == 1 ]]; then
+    print_str+="\n"
+  fi
+  echo -e "$print_str"
+  unset color_start
+  unset color_end
+  unset print_str
+}
+main $@

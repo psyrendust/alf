@@ -1,0 +1,20 @@
+#!/usr/bin/env zsh
+#
+# Open diff in Kaleidoscope.app
+#
+# Author:
+#   Larry Gordon
+#
+# Usage:
+#   git ksreview
+#
+# License:
+#   The MIT License (MIT) <http://psyrendust.mit-license.org/2014/license.html>
+# ------------------------------------------------------------------------------
+
+local upstream_branch=${1:-HEAD}
+local local_branch=${2:-master}
+if [ $upstream_branch == $local_branch ]; then
+  upstream_branch=HEAD
+fi
+git difftool -y -t Kaleidoscope $local_branch...$upstream_branch

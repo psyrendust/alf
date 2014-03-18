@@ -1,0 +1,113 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "ALF\-FRAMEWORK" "1" "March 2014" "" ""
+.
+.SH "NAME"
+\fBalf\-framework\fR \- Functions to help manage frameworks within Alf
+.
+.SH "SYNOPSIS"
+\fBalf framework install\fR [\fB\-u\fR \fBurl\fR] [\fB\-s\fR \fBfile_to_source\fR]
+.
+.br
+\fBalf framework uninstall\fR \fI\fBshort_name\fR\fR
+.
+.br
+\fBalf framework update\fR \fI\fBshort_name\fR\fR
+.
+.SH "DESCRIPTION"
+Functions to help manage frameworks within Alf\.
+.
+.TP
+\fBinstall\fR [\fB\-u\fR \fBurl\fR] [\fB\-s\fR \fBfile_to_source\fR]
+Install a framework into Alf\.
+.
+.TP
+[\fB\-u\fR \fBurl\fR]
+A valid \.git url to install from\.
+.
+.TP
+[\fB\-s\fR \fBfile_to_source\fR]
+A file to source for interactive login shells\.
+
+.
+.TP
+\fB\-e\fR
+Append a \fIMESSAGE\fR to an error logfile for a given \fINAMESPACE\fR\.
+.
+.TP
+\fB\-d\fR
+Delete the log and error logfile for a given \fINAMESPACE\fR\.
+.
+.TP
+\fB\-\-help\fR
+Display this help and exit\.
+.
+.SH "EXAMPLES"
+Log a message to a logfile named \fBfoobar\fR (saves to \fB$HOME/\.alf/logs/foobar\.log\fR):
+.
+.IP "" 4
+.
+.nf
+
+alf log \-l foobar "Logging foobar message"
+.
+.fi
+.
+.IP "" 0
+.
+.P
+You can optionally choose to pass no \fBOPTION\fR which is equivalent to \fBalf\-log\-l\fR:
+.
+.IP "" 4
+.
+.nf
+
+alf log foobar "Logging foobar message"
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Log an error message to a logfile named \fBfoobar\fR (saves to \fB$HOME/\.alf/logs/error\-foobar\.log\fR):
+.
+.IP "" 4
+.
+.nf
+
+alf log \-e foobar "Logging foobar message"
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Delete all \fBfoobar\fR logfiles (deletes \fB$HOME/\.alf/logs/foobar\.log\fR and \fB$HOME/\.alf/logs/error\-foobar\.log\fR):
+.
+.IP "" 4
+.
+.nf
+
+alf log \-d foobar
+.
+.fi
+.
+.IP "" 0
+.
+.SH "AUTHOR"
+.
+.nf
+
+Written by Larry Gordon
+.
+.fi
+.
+.SH "COPYRIGHT"
+.
+.nf
+
+The MIT License (MIT) <http://psyrendust\.mit\-license\.org/2014/license\.html>
+.
+.fi
+

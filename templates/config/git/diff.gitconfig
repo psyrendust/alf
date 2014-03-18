@@ -1,0 +1,46 @@
+#
+# Diff Git config settings.
+#
+# Author:
+#   Larry Gordon
+#
+# License:
+#   The MIT License (MIT) <http://psyrendust.mit-license.org/2014/license.html>
+# ------------------------------------------------------------------------------
+
+# Configure default Git settings for difftool and mergetool of choice.
+[difftool]
+  keepBackup = false
+  prompt = false
+  trustExitCode = true
+[mergetool]
+  keepBackup = false
+  prompt = false
+  trustExitCode = true
+
+
+
+# Configure ksdiff to handle a 3-way diff and merge for sourcetree
+# ------------------------------------------------------------------------------
+[difftool "sourcetree"]
+  cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+[mergetool "sourcetree"]
+  cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+
+
+
+# Configure ksdiff to handle a 3-way diff and merge for Kaleidoscope
+# ------------------------------------------------------------------------------
+[difftool "Kaleidoscope"]
+  cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+[mergetool "Kaleidoscope"]
+  cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+
+
+
+# Configure git to use Kaleidoscope for diff and merges
+# ------------------------------------------------------------------------------
+[diff]
+  tool = Kaleidoscope
+[merge]
+  tool = Kaleidoscope

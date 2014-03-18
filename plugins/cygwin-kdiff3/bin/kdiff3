@@ -1,0 +1,32 @@
+#!/usr/bin/env zsh
+#
+# Fixes cygwin paths when passing files as arguments to kdiff3.exe
+#
+# Author:
+#   Larry Gordon
+#
+# License:
+#   The MIT License (MIT) <http://psyrendust.mit-license.org/2014/license.html>
+# ------------------------------------------------------------------------------
+
+local _kdiff3="/cygdrive/c/Program Files (x86)/KDiff3/kdiff3.exe"
+local _kdiff3_result
+local _kdiff3_output
+if [[ -f $_kdiff3 ]]; then
+  for arg
+  do
+    if [[ "" != "$arg" ]] && [[ -e $arg ]]; then
+      _kdiff3_output=`cygpath -wa $arg`
+    else
+      _kdiff3_output=$arg
+      if [[ $arg == -* ]];
+      then
+        _kdiff3_output=$arg
+      else
+        _kdiff3_output="'$arg'"
+      fi
+    fi
+    _kdiff3_result=$_kdiff3_result" "$_kdiff3_output
+  done
+  $_kdiff3 $_kdiff3_result
+fi

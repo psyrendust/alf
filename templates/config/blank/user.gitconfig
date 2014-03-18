@@ -1,0 +1,10 @@
+#
+# Setup username and email for Git.
+#
+# Author:
+#   Larry Gordon
+#
+# License:
+#   The MIT License (MIT) <http://psyrendust.mit-license.org/2014/license.html>
+# ------------------------------------------------------------------------------
+[user]

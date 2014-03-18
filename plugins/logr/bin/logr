@@ -1,0 +1,42 @@
+#!/usr/bin/env zsh
+#
+# Log helper function.
+#
+# Author:
+#   Larry Gordon
+#
+# Usage:
+#   man logr
+#
+# License:
+#   The MIT License (MIT) <http://psyrendust.mit-license.org/2014/license.html>
+# ------------------------------------------------------------------------------
+
+# Accepts an optional flag
+while getopts "edlh" opt; do
+  [[ $opt == "h" ]] && man "$ALF_SRC_PLUGINS/logr/man/man1/logr.1" && return
+  [[ $opt == "d" ]] && option=1
+  [[ $opt == "e" ]] && option=2
+  [[ $opt == "l" ]] && option=3
+done
+
+# Shift the params if an option exists
+if [[ -n $option ]]; then
+  shift
+fi
+
+if [[ $option == 1 ]]; then
+  # Delete the log and error logfile for a given namespace ($1)
+  if [[ -s "$ALF_LOGR/${1}.log" ]]; then
+    rm "$ALF_LOGR/${1}.log"
+  fi
+  if [[ -s "$ALF_LOGR/error-${1}.log" ]]; then
+    rm "$ALF_LOGR/error-${1}.log"
+  fi
+elif [[ $option == 2 ]]; then
+  # Append a message ($2) to an error logfile for a given namespace ($1)
+  echo "$(date): $2" >> "$ALF_LOGR/error-${1}.log"
+else
+  # Append a message ($2) to a logfile for a given namespace ($1)
+  echo "$(date): $2" >> "$ALF_LOGR/${1}.log"
+fi
