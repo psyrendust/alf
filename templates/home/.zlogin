@@ -78,6 +78,7 @@ if [[ ! -n $ALF_DISABLE_AUTO_UPDATE ]]; then
     typeset -a _repos; \
     antigen selfupdate | while read -r line; do printf '\033[0;32m▍\033[0m'; done; \
     antigen update | while read -r line; do printf '\033[0;32m▍\033[0m'; done;
+    printf '\n'
 
 
     # Update last epoch
