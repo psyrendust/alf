@@ -67,7 +67,7 @@ if [[ ! -n $ALF_DISABLE_AUTO_UPDATE ]]; then
   # Load up the last run for auto-update
   # ----------------------------------------------------------------------------
   alf epoch --set
-  alf_au_last_epoch_diff=$(( $(alf epoch --get "auto-update") - $(alf epoch --get) ))
+  alf_au_last_epoch_diff=$(( $(alf epoch --get) - $(alf epoch --get "auto-update") ))
 
   # See if we ran this today already
   # ----------------------------------------------------------------------------
