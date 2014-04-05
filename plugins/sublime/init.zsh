@@ -30,8 +30,8 @@ typeset -a sublime_paths=(
 
 for sublime_path in $sublime_paths; do
   if [[ -a $sublime_path ]]; then
-    # Add sublime's bin folder to PATH
-    export "${sublime_path%/*}:$PATH"
+    # Alias subl to it's executable because it's faster than creating a Symlink
+    alias subl="\"$sublime_path\""
     break
   fi
 done
@@ -42,7 +42,7 @@ sbl() {
   if  [[ -n $PLATFORM_IS_MAC ]]; then
     subl $@
   elif  [[ -n $PLATFORM_IS_CYGWIN ]]; then
-    cygstart /usr/local/bin/subl $(cygpath -w $@)
+    cygstart subl $(cygpath -w $@)
   elif [[ -n $PLATFORM_IS_LINUX ]]; then
     if [ -f '/usr/bin/sublime_text' ]; then
       nohup /usr/bin/sublime_text $@ > /dev/null &
