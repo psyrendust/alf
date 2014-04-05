@@ -17,7 +17,7 @@
 #   The MIT License (MIT) <http://psyrendust.mit-license.org/2014/license.html>
 # ------------------------------------------------------------------------------
 
-typeset -a sublime_paths=(
+sublime_paths=(
   "$HOME/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl"
   "$HOME/Applications/Sublime Text 3.app/Contents/SharedSupport/bin/subl"
   "$HOME/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl"
