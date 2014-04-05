@@ -193,6 +193,7 @@ export ADOTDIR="$ALF_CUSTOM/antigen"
 export ALF_URL="https://github.com/psyrendust/alf.git"
 export ALF_SRC="$ADOTDIR/repos/$(__alf-get-antigen-clone-dir $ALF_URL $ALF_BRANCH)"
 export ALF_BACKUP_FOLDER="$ALF_CUSTOM/backup/$(date '+%Y%m%d')"
+export ALF_THEME="sindresorhus/pure"
 ppemphasis "ALF_SRC: $ALF_SRC"
 mkdir -p -m 775 "$ADOTDIR"
 mkdir -p -m 775 "$ALF_BACKUP_FOLDER"
@@ -314,31 +315,28 @@ ppemphasis "ALF_BACKUP_FOLDER: $ALF_BACKUP_FOLDER"
 ppinfo "Installing Antigen"
 git clone https://github.com/zsh-users/antigen "$ADOTDIR" 2>/dev/null
 
-ppinfo "Installing Alf"
-# git clone "$ALF_URL" "$ALF_SRC" 2>/dev/null
-# git clone /Volumes/SharedFolders/Home/psyrendust/github/alf "$ALF_SRC" 2>/dev/null
-
 
 ppinfo "Sourcing Antigen"
 source "$ADOTDIR/antigen.zsh"
 
 
 ppinfo "Installing Oh My Zsh, Alf, Zsh Syntax Highlighting, and Pure"
-antigen use oh-my-zsh
+antigen bundle fasd
 antigen bundle $ALF_URL $ALF_BRANCH
-antigen bundle sindresorhus/pure
+antigen bundle $ALF_URL $ALF_BRANCH plugins/colored-man
+antigen bundle $ALF_URL $ALF_BRANCH plugins/migrate
+antigen bundle $ALF_URL $ALF_BRANCH plugins/utilities
+antigen bundle $ALF_URL $ALF_BRANCH plugins/system
+antigen bundle $ALF_URL $ALF_BRANCH plugins/sugar
+antigen bundle $ALF_THEME
+antigen bundle zsh-users/zaw
+antigen bundle zsh-users/zsh-completions src
 antigen bundle zsh-users/zsh-syntax-highlighting
+antigen bundle zsh-users/zsh-history-substring-search
+source "$ZSH/oh-my-zsh.sh"
+# Call apply functions for Alf and Antigen
+alf apply
+antigen apply
 
-
-ppinfo "Symlink shell files to your home folder."
-if [[ -n $PLATFORM_IS_CYGWIN ]]; then
-  export PATH=$ALF_SRC/plugins/cygwin-ln/bin:$PATH
-fi
-ln -sf "$ALF_SRC" "$ALF_CUSTOM/alf"
-for file in $(find "$ALF_SRC/templates/home" -name ".*"); do
-  ln -sf "$ALF_CUSTOM/alf/templates/home/${file:t}" "$HOME/${file:t}"
-done
-
-
-ppsuccess "Our baseline setup is complete!"
-ppsuccess "You will need to restart your terminal."
+ppinfo "Calling alf migrate and restarting terminal after completion."
+alf migrate --restart
