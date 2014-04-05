@@ -475,7 +475,6 @@ source "$ADOTDIR/antigen.zsh"
 # ------------------------------------------------------------------------------
 source "$ALF_SRC_PLUGINS/utilities/init.zsh" 2>/dev/null
 source "$ALF_SRC_PLUGINS/system/init.zsh" 2>/dev/null
-source "$ALF_SRC_PLUGINS/aliases/init.zsh" 2>/dev/null
 source "$ALF_SRC_PLUGINS/sugar/init.zsh" 2>/dev/null
 if [[ -n $PLATFORM_IS_CYGWIN ]]; then
   source "$ALF_SRC_PLUGINS/cygwin-gem/init.zsh" 2>/dev/null
