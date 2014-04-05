@@ -193,7 +193,6 @@ zstyle ':alf:load:plugins:default' plugins \
   'ALL:grunt-autocomplete' \
   'ALL:migrate' \
   'ALL:refresh' \
-  'ALL:sublime' \
   'MAC:apache2' \
   '#  :oh-my-zsh plugins' \
   'ALL:bower' \
@@ -475,6 +474,7 @@ source "$ADOTDIR/antigen.zsh"
 # ------------------------------------------------------------------------------
 source "$ALF_SRC_PLUGINS/utilities/init.zsh" 2>/dev/null
 source "$ALF_SRC_PLUGINS/system/init.zsh" 2>/dev/null
+source "$ALF_SRC_PLUGINS/sublime/init.zsh" 2>/dev/null
 source "$ALF_SRC_PLUGINS/sugar/init.zsh" 2>/dev/null
 if [[ -n $PLATFORM_IS_CYGWIN ]]; then
   source "$ALF_SRC_PLUGINS/cygwin-gem/init.zsh" 2>/dev/null
