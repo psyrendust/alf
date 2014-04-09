@@ -14,6 +14,7 @@ alias zshconfig="sbl ~/.zshrc"
 alias ohmyzsh="sbl ~/.oh-my-zsh"
 alias sourceohmyzsh="source ~/.zshrc"
 alias npmlist="npm -g ls --depth=0 2>/dev/null"
+alias gruntinitupdate='(for repo in $(ls "$HOME/.grunt-init"); do cd "$HOME/.grunt-init/$repo"; git pull origin master; done) >/dev/null'
 
 
 

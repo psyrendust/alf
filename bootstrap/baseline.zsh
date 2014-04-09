@@ -29,6 +29,20 @@ __alf-get-antigen-clone-dir() {
 }
 
 # Check if a formula is installed in homebrew
+function _app-is-installed() {
+  apps=(
+    "/Applications"
+    "$HOME/Applications"
+  )
+  for app in $apps; do
+    if [[ -n $(ls /Applications 2>/dev/null | grep "^${1}$") ]]; then
+      echo 1
+      return
+    fi
+  done
+}
+
+# Check if a formula is installed in homebrew
 function _brew-is-installed() {
   echo $(brew list 2>/dev/null | grep "^${1}$")
 }
@@ -143,8 +157,17 @@ fi
 export PLATFORM_IS_ALL=1
 
 
-# Define a different branch for Alf, helpful for doing dev
-[[ $# -ge 1 ]] && export ALF_BRANCH="--branch=$1"
+
+# ------------------------------------------------------------------------------
+# Setup environment paths and folders
+# ------------------------------------------------------------------------------
+export ALF_CUSTOM="$HOME/.alf"
+export ALF_CONFIG="$ALF_CUSTOM/config"
+export ADOTDIR="$ALF_CUSTOM/antigen"
+export ALF_URL="https://github.com/psyrendust/alf.git"
+export ALF_SRC="$ADOTDIR/repos/$(__alf-get-antigen-clone-dir $ALF_URL $ALF_BRANCH)"
+export ALF_BACKUP_FOLDER="$ALF_CUSTOM/backup/$(date '+%Y%m%d')"
+
 
 
 # ------------------------------------------------------------------------------
@@ -184,16 +207,18 @@ fi
 # fi
 
 
+# Define a different branch for Alf, helpful for doing dev
+if [[ $# -ge 1 ]]; then
+  echo "$1" > "$ALF_CONFIG/branch"
+else
+  [[ -s "$ALF_CONFIG/branch" ]] && rm "$ALF_CUSTOM/branch"
+fi
+[[ -s "$ALF_CONFIG/branch" ]] && export ALF_BRANCH="--branch=$(echo `cat $ALF_CONFIG/branch`)"
 
-# ------------------------------------------------------------------------------
-# Setup environment paths and folders
-# ------------------------------------------------------------------------------
-export ALF_CUSTOM="$HOME/.alf"
-export ADOTDIR="$ALF_CUSTOM/antigen"
-export ALF_URL="https://github.com/psyrendust/alf.git"
-export ALF_SRC="$ADOTDIR/repos/$(__alf-get-antigen-clone-dir $ALF_URL $ALF_BRANCH)"
-export ALF_BACKUP_FOLDER="$ALF_CUSTOM/backup/$(date '+%Y%m%d')"
+# Setup a default theme
 export ALF_THEME="sindresorhus/pure"
+
+
 ppemphasis "ALF_SRC: $ALF_SRC"
 mkdir -p -m 775 "$ADOTDIR"
 mkdir -p -m 775 "$ALF_BACKUP_FOLDER"
@@ -285,6 +310,11 @@ if [[ -n $PLATFORM_IS_MAC ]]; then
     brew install zsh
   fi
 
+  if [[ -z $(_brew-is-installed "zsh") ]]; then
+    ppinfo "Install the latest Zsh"
+    brew install zsh
+  fi
+
   if [[ -z $(cat /private/etc/shells | grep "/usr/local/bin/zsh") ]]; then
     ppinfo "Add zsh to the allowed shells list if it's not already there"
     sudo bash -c "echo /usr/local/bin/zsh >> /private/etc/shells"
@@ -305,6 +335,16 @@ if [[ -n $PLATFORM_IS_MAC ]]; then
     ppdanger "\$SHELL is not /usr/local/bin/zsh"
     return 1
   fi
+
+  if [[ -z $(_brew-is-installed "brew-cask") ]]; then
+    ppinfo "Install homebrew cask"
+    brew tap phinze/cask
+    brew install brew-cask
+    brew tap caskroom/versions
+  fi
+
+  ppinfo "Install some cask apps"
+  brew cask install iterm2 sublime-text-dev
 fi
 
 ppemphasis "ALF_CUSTOM: $ALF_CUSTOM"
@@ -337,6 +377,11 @@ source "$ZSH/oh-my-zsh.sh"
 # Call apply functions for Alf and Antigen
 alf apply
 antigen apply
+
+if [[ -n $PLATFORM_IS_MAC ]]; then
+  # Copy over iTerm2 default preferences
+  cp "$ALF_SRC/templates/config/iterm/com.googlecode.iterm2.plist" "$HOME/Library/Preferences/com.googlecode.iterm2.plist"
+fi
 
 ppinfo "Calling alf migrate and restarting terminal after completion."
 alf migrate --restart
