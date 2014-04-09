@@ -16,15 +16,17 @@ Alf will work with any recent release of Zsh, but the minimum recommended versio
 
 ### OS X ###
 
-This method will clone the repository and setup a colony in your home folder `~/.alf`
-
-1. Clone the repository in your terminal of choice:
+This method will setup everything you need:
 
     ```shell
-git clone https://github.com/psyrendust/alf.git $HOME/.alf/repos/frameworks/alf
+    \curl -sSL https://raw.githubusercontent.com/psyrendust/alf/develop/bootstrap/baseline.zsh | zsh
     ```
 
-2. Run the bootstrap-shell.zsh script (WIP):
+Or you can pass an optional argument to load a specific branch:
+
+    ```shell
+    \curl -sSL https://raw.githubusercontent.com/psyrendust/alf/develop/bootstrap/baseline.zsh | zsh -s develop
+    ```
 
 
 
