@@ -17,26 +17,27 @@
 #   The MIT License (MIT) <http://psyrendust.mit-license.org/2014/license.html>
 # ------------------------------------------------------------------------------
 
-sublime_paths=(
-  "$HOME/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl"
-  "$HOME/Applications/Sublime Text 3.app/Contents/SharedSupport/bin/subl"
-  "$HOME/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl"
-  "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl"
-  "/Applications/Sublime Text 3.app/Contents/SharedSupport/bin/subl"
-  "/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl"
-  "/cygdrive/c/Program Files/Sublime Text 3/sublime_text.exe"
-  "/cygdrive/c/Program Files/Sublime Text 2/sublime_text.exe"
-)
 
-for sublime_path in $sublime_paths; do
-  if [[ -a $sublime_path ]]; then
-    # Alias subl to it's executable because it's faster than creating a Symlink
-    alias subl="\"$sublime_path\""
-    break
-  fi
-done
+# Create a symlink in the background, because it can be slow on some machines
+{
+  sublime_paths=(
+    "$HOME/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl"
+    "$HOME/Applications/Sublime Text 3.app/Contents/SharedSupport/bin/subl"
+    "$HOME/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl"
+    "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl"
+    "/Applications/Sublime Text 3.app/Contents/SharedSupport/bin/subl"
+    "/Applications/Sublime Text 2.app/Contents/SharedSupport/bin/subl"
+    "/cygdrive/c/Program Files/Sublime Text 3/sublime_text.exe"
+    "/cygdrive/c/Program Files/Sublime Text 2/sublime_text.exe"
+  ) &&
+  for sublime_path in $sublime_paths; do
+    if [[ -a $sublime_path ]]; then
+      ln -sf "$sublime_path" "/usr/local/bin/subl"
+      break
+    fi
+  done
+} &!
 
-unset sublime_path{,s}
 
 sbl() {
   if  [[ -n $PLATFORM_IS_MAC ]]; then
