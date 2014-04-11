@@ -45,6 +45,20 @@ _alf-epoch() {
 }
 
 
+
+# Updates git config to always push to master and develop branches and all tags,
+# and always fetch from master and develop branches.
+# ------------------------------------------------------------------------------
+_alf-gitflow-setup() {
+  git config --add remote.origin.fetch '+refs/heads/master:refs/remotes/origin/master'
+  git config --add remote.origin.fetch '+refs/heads/develop:refs/remotes/origin/develop'
+  git config --add remote.origin.fetch '+refs/tags/*:refs/tags/*'
+  git config --add remote.origin.push '+refs/heads/master:refs/remotes/origin/master'
+  git config --add remote.origin.push '+refs/heads/develop:refs/remotes/origin/develop'
+  git config --add remote.origin.push '+refs/tags/*:refs/tags/*'
+}
+
+
 # Helps with getting what you want out of a path
 # -p: base path
 # -e: file extension
