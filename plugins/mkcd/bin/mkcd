@@ -13,5 +13,9 @@
 #   The MIT License (MIT) <http://psyrendust.mit-license.org/2014/license.html>
 # ------------------------------------------------------------------------------
 
-mkdir -p "$*"
-cd "$*"
+main() {
+  dir="$*"
+  mkdir -p "$dir"
+  cd "$dir"
+}
+main $@
