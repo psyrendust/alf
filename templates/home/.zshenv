@@ -192,6 +192,7 @@ zstyle ':alf:load:plugins:default' plugins \
   'ALL:git' \
   'ALL:grunt-autocomplete' \
   'ALL:migrate' \
+  'ALL:mkcd' \
   'ALL:refresh' \
   'MAC:apache2' \
   '#  :oh-my-zsh plugins' \
@@ -404,7 +405,6 @@ unset alf_src_paths{s,}
 # Set paths for Alf bin and manpath for plugins
 # ------------------------------------------------------------------------------
 _alf_path_pre+=("$ALF_SRC_PLUGINS/ksreview/bin")
-_alf_path_pre+=("$ALF_SRC_PLUGINS/mkcd/bin")
 _alf_path_pre+=("$ALF_SRC_PLUGINS/murder/bin")
 _alf_path_pre+=("$ALF_SRC_PLUGINS/pretty-print/bin")
 _alf_path_pre+=("$ALF_SRC_PLUGINS/process/bin")
