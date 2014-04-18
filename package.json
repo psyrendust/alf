@@ -1,0 +1,11 @@
+{
+  "name": "alf",
+  "version": "1.0.10",
+  "engines": {
+    "node": ">= 0.10.0"
+  },
+  "devDependencies": {
+    "grunt": "0.4.2",
+    "grunt-changelog": "0.2.2"
+  }
+}
