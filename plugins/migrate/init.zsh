@@ -69,24 +69,10 @@ _alf-migrate() {
     # We are using Cygwin in Windows
     export PLATFORM_IS_CYGWIN=1
     # We are also in a virtualized Windows environment
-    if [[ -f "/cygdrive/z/.zshrc" ]]; then
+    if [[ -f $(find /cygdrive/z -maxdepth 1 -type f -name ".zshrc.lnk") ]]; then
       export PLATFORM_IS_VM=1
       export ALF_HOST="/cygdrive/z/.alf"
     fi
-
-  elif [[ $('uname') == *MINGW* ]]; then
-    # We are using Git Bash in Windows
-    export PLATFORM_IS_MINGW32=1
-    if [[ -f "/c/cygwin64/z/.zshrc" ]]; then
-      export PLATFORM_IS_VM=1
-      export ALF_HOST="/c/cygwin64/z/.alf"
-    fi
-    if [[ -d "/c/cygwin64/c/cygwin64/home" ]]; then
-      alf_user=`whoami`
-      export HOME="/c/cygwin64/c/cygwin64/home/${alf_user##*\\}"
-      unset alf_user
-    fi
-    return
 
   elif [[ $('uname') == *Linux* ]]; then
     # We are using Linux
@@ -104,27 +90,27 @@ _alf-migrate() {
   export ADOTDIR="$ALF_CUSTOM/antigen"
   export ALF_URL="https://github.com/psyrendust/alf.git"
   export OMZ_URL="https://github.com/robbyrussell/oh-my-zsh.git"
-  export Alf_BACKUP "$ALF_CUSTOM/backup"
-  export Alf_CONFIG "$ALF_CUSTOM/config"
-  export Alf_CONFIG_GIT "$ALF_CUSTOM/config/git"
-  export Alf_CONFIG_SSH "$ALF_CUSTOM/config/ssh"
-  export Alf_CONFIG_WIN "$ALF_CUSTOM/config/win"
-  export Alf_EPOCH "$ALF_CUSTOM/epoch"
-  export Alf_LOGR "$ALF_CUSTOM/logr"
-  export Alf_PROCESS "$ALF_CUSTOM/process"
-  export Alf_RPROMPT "$ALF_CUSTOM/rprompt"
-  export Alf_RUN_ONCE "$ALF_CUSTOM/run-once"
-  export Alf_SYMLINK "$ALF_CUSTOM/symlink"
-  export Alf_UPDATES "$ALF_CUSTOM/updates"
-  export Alf_VERSION "$ALF_CUSTOM/version"
-  export Alf_GRUNT_INIT "$HOME/.grunt-init"
-  export Alf_SRC_FONTS "$ALF_SRC/fonts"
-  export Alf_SRC_GIT_HOOKS "$ALF_SRC/git-hooks"
-  export Alf_SRC_PLUGINS "$ALF_SRC/plugins"
-  export Alf_SRC_TEMPLATES "$ALF_SRC/templates"
-  export Alf_SRC_TEMPLATES_CONFIG "$ALF_SRC/templates/config"
-  export Alf_SRC_THEMES "$ALF_SRC/themes"
-  export Alf_SRC_TOOLS "$ALF_SRC/tools"
+  export Alf_BACKUP="$ALF_CUSTOM/backup"
+  export Alf_CONFIG="$ALF_CUSTOM/config"
+  export Alf_CONFIG_GIT="$ALF_CUSTOM/config/git"
+  export Alf_CONFIG_SSH="$ALF_CUSTOM/config/ssh"
+  export Alf_CONFIG_WIN="$ALF_CUSTOM/config/win"
+  export Alf_EPOCH="$ALF_CUSTOM/epoch"
+  export Alf_LOGR="$ALF_CUSTOM/logr"
+  export Alf_PROCESS="$ALF_CUSTOM/process"
+  export Alf_RPROMPT="$ALF_CUSTOM/rprompt"
+  export Alf_RUN_ONCE="$ALF_CUSTOM/run-once"
+  export Alf_SYMLINK="$ALF_CUSTOM/symlink"
+  export Alf_UPDATES="$ALF_CUSTOM/updates"
+  export Alf_VERSION="$ALF_CUSTOM/version"
+  export Alf_GRUNT_INIT="$HOME/.grunt-init"
+  export Alf_SRC_FONTS="$ALF_SRC/fonts"
+  export Alf_SRC_GIT_HOOKS="$ALF_SRC/git-hooks"
+  export Alf_SRC_PLUGINS="$ALF_SRC/plugins"
+  export Alf_SRC_TEMPLATES="$ALF_SRC/templates"
+  export Alf_SRC_TEMPLATES_CONFIG="$ALF_SRC/templates/config"
+  export Alf_SRC_THEMES="$ALF_SRC/themes"
+  export Alf_SRC_TOOLS="$ALF_SRC/tools"
 
   # Define a different branch for Alf, helpful for doing dev
   [[ -s "$ALF_CONFIG/branch" ]] && export ALF_BRANCH="--branch=$(echo `cat $ALF_CONFIG/branch`)"
