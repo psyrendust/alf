@@ -18,15 +18,15 @@ Alf will work with any recent release of Zsh, but the minimum recommended versio
 
 This method will setup everything you need:
 
-    ```shell
-    \curl -sSL https://raw.githubusercontent.com/psyrendust/alf/develop/bootstrap/baseline.zsh | zsh
-    ```
+```shell
+\curl -sSL https://raw.githubusercontent.com/psyrendust/alf/develop/bootstrap/baseline.zsh | zsh
+```
 
 Or you can pass an optional argument to load a specific branch:
 
-    ```shell
-    \curl -sSL https://raw.githubusercontent.com/psyrendust/alf/develop/bootstrap/baseline.zsh | zsh -s develop
-    ```
+```shell
+\curl -sSL https://raw.githubusercontent.com/psyrendust/alf/develop/bootstrap/baseline.zsh | zsh -s develop
+```
 
 
 
@@ -49,7 +49,7 @@ Larry Gordon
 License
 -------
 
-[The MIT License (MIT)](http://psyrendust.mit-license.org/2014/license.html)
+[The MIT License (MIT)](http://psyrendust.mit-license.org/2014)
 
 [1]: https://github.com/sorin-ionescu/prezto
 [2]: https://github.com/zsh-users/antigen
