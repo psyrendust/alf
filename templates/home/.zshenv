@@ -13,7 +13,7 @@
 #   The MIT License (MIT) <http://psyrendust.mit-license.org/2014/license.html>
 # ------------------------------------------------------------------------------
 
-_alf_startup_time_begin=$(/usr/local/bin/gdate +%s%N)
+_alf_startup_time_begin=$(echo /usr/local/bin/gdate +%s%N 2>/dev/null || 0)
 # ------------------------------------------------------------------------------
 # Small helper function to get Antigen's clone dir for a given repo url
 # ------------------------------------------------------------------------------
@@ -31,7 +31,7 @@ __alf-get-antigen-clone-dir() {
               -e 's.|.-PIPE-.g'
 }
 
-
+echo "-->"
 
 # ------------------------------------------------------------------------------
 # Do some platform checks so we don't have to keep doing it later
@@ -44,24 +44,10 @@ elif [[ $('uname') == *CYGWIN* ]]; then
   # We are using Cygwin in Windows
   export PLATFORM_IS_CYGWIN=1
   # We are also in a virtualized Windows environment
-  if [[ -f "/cygdrive/z/.zshrc" ]]; then
+  if [[ -f $(find /cygdrive/z -maxdepth 1 -type f -name ".zshrc.lnk") ]]; then
     export PLATFORM_IS_VM=1
     export ALF_HOST="/cygdrive/z/.alf"
   fi
-
-elif [[ $('uname') == *MINGW* ]]; then
-  # We are using Git Bash in Windows
-  export PLATFORM_IS_MINGW32=1
-  if [[ -f "/c/cygwin64/z/.zshrc" ]]; then
-    export PLATFORM_IS_VM=1
-    export ALF_HOST="/c/cygwin64/z/.alf"
-  fi
-  if [[ -d "/c/cygwin64/c/cygwin64/home" ]]; then
-    alf_user=`whoami`
-    export HOME="/c/cygwin64/c/cygwin64/home/${alf_user##*\\}"
-    unset alf_user
-  fi
-  return
 
 elif [[ $('uname') == *Linux* ]]; then
   # We are using Linux
