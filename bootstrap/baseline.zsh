@@ -124,34 +124,19 @@ function ppdanger() {
 if [[ $('uname') == *Darwin* ]]; then
   # We are using OS X
   export PLATFORM_IS_MAC=1
-  printf '\033[0;35m%s\033[0m\n' "Platform is OS X"
 
 elif [[ $('uname') == *CYGWIN* ]]; then
   # We are using Cygwin in Windows
   export PLATFORM_IS_CYGWIN=1
-  printf '\033[0;35m%s\033[0m\n' "Platform is Windows using Cygwin"
   # We are also in a virtualized Windows environment
-  if [[ -f "/cygdrive/z/.zshrc" ]]; then
+  if [[ -f $(find /cygdrive/z -maxdepth 1 -type f -name ".zshrc.lnk") ]]; then
     export PLATFORM_IS_VM=1
     export ALF_HOST="/cygdrive/z/.alf"
-    printf '\033[0;35m%s\033[0m\n' "You are running Windows in a VM using Cygwin"
   fi
-
-elif [[ $('uname') == *MINGW* ]]; then
-  # We are using Git Bash in Windows
-  export PLATFORM_IS_MINGW32=1
-  printf '\033[0;35m%s\033[0m\n' "Platform is Windows using Git Bash"
-  if [[ -f "/c/cygwin64/z/.zshrc" ]]; then
-    export PLATFORM_IS_VM=1
-    export ALF_HOST="/c/cygwin64/z/.alf"
-    printf '\033[0;35m%s\033[0m\n' "You are running Windows in a VM using Git Bash"
-  fi
-  return
 
 elif [[ $('uname') == *Linux* ]]; then
   # We are using Linux
   export PLATFORM_IS_LINUX=1
-  printf '\033[0;35m%s\033[0m\n' "Platform is Linux"
 fi
 # Add support for all systems
 export PLATFORM_IS_ALL=1
@@ -288,7 +273,7 @@ if [[ -n $PLATFORM_IS_MAC ]]; then
   fi
 
   ppemphasis "Checking for homebrew..."
-  if [[ -n $(which brew | grep "not found") ]]; then
+  if [[ -n $(brew --prefix 2>&1 | grep "not found") ]]; then
     ppdanger "Homebrew missing. Installing Homebrew..."
     # https://github.com/mxcl/homebrew/wiki/installation
     ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
@@ -305,9 +290,9 @@ if [[ -n $PLATFORM_IS_MAC ]]; then
   ppinfo "Upgrade any already-installed formulae"
   brew upgrade
 
-  if [[ -z $(_brew-is-installed "zsh") ]]; then
-    ppinfo "Install the latest Zsh"
-    brew install zsh
+  if [[ -z $(_brew-is-installed "bash") ]]; then
+    ppinfo "Install the latest Bash"
+    brew install bash
   fi
 
   if [[ -z $(_brew-is-installed "zsh") ]]; then
@@ -315,6 +300,10 @@ if [[ -n $PLATFORM_IS_MAC ]]; then
     brew install zsh
   fi
 
+  if [[ -z $(cat /private/etc/shells | grep "/usr/local/bin/bash") ]]; then
+    ppinfo "Add bash to the allowed shells list if it's not already there"
+    sudo bash -c "echo /usr/local/bin/bash >> /private/etc/shells"
+  fi
   if [[ -z $(cat /private/etc/shells | grep "/usr/local/bin/zsh") ]]; then
     ppinfo "Add zsh to the allowed shells list if it's not already there"
     sudo bash -c "echo /usr/local/bin/zsh >> /private/etc/shells"
