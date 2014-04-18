@@ -76,7 +76,7 @@ if [[ -n $PLATFORM_IS_CYGWIN ]]; then
       printf " \"%s\" \"%s\"" "$link_name" "$target" >> "$symlink_bat"
 
       # Create the VBS file contents to launch the Batch file
-      printf "%s \"%s\" %s" "WinScriptHost.Run Chr(34) &" "$cygwin_bat" "& Chr(34), 0" >> "$symlink_vbs"
+      printf "%s \"%s\" %s\n" "WinScriptHost.Run Chr(34) &" "$cygwin_bat" "& Chr(34), 0" >> "$symlink_vbs"
       printf "%s" "Set WinScriptHost = Nothing" >> "$symlink_vbs"
 
       # Create the symlink and run it in the background
