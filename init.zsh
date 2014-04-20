@@ -19,8 +19,10 @@
   # shell's environment.
   # ----------------------------------------------------------------------------
   if [[ ! -f "$ALF_SRC/.git/hooks/post-merge" ]]; then
-    cp "$ALF_SRC/git-hooks/post-merge.zsh" "$ALF_SRC/.git/hooks/post-merge" &&
-    export GIT_DIR=$(cd $ALF_SRC && git rev-parse --show-toplevel)
-    source "$ALF_SRC/.git/hooks/post-merge" true
+    if [[ -f "$ALF_SRC/git-hooks/post-merge.zsh" ]]; then
+      cp "$ALF_SRC/git-hooks/post-merge.zsh" "$ALF_SRC/.git/hooks/post-merge" &&
+      export GIT_DIR=$(cd $ALF_SRC && git rev-parse --show-toplevel)
+      source "$ALF_SRC/.git/hooks/post-merge" true
+    fi
   fi
 } &!

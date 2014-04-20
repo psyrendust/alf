@@ -123,7 +123,8 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 # ------------------------------------------------------------------------------
 export ALF_CUSTOM="$HOME/.alf"
 export ADOTDIR="$ALF_CUSTOM/antigen"
-export ALF_URL="https://github.com/psyrendust/alf.git"
+# export ALF_URL="https://github.com/psyrendust/alf.git"
+export ALF_URL="/Volumes/SharedFolders/Home/psyrendust/github/alf"
 export OMZ_URL="https://github.com/robbyrussell/oh-my-zsh.git"
 zstyle ':alf:paths:default' paths \
   'BACKUP' '$ALF_CUSTOM/backup' \
