@@ -137,18 +137,18 @@ _alf-migrate() {
   # Copy over templates
   # ------------------------------------------------------------------------------
   ln -sf "$ALF_SRC_TEMPLATES/home-${platform_type}/.gitconfig" "$HOME/.gitconfig"
-  cp -aR "$ALF_SRC_TEMPLATES_CONFIG/win/." "$ALF_CONFIG_WIN/"
-  cp -aR "$ALF_SRC_TEMPLATES_CONFIG/git/." "$ALF_CONFIG_GIT/"
-  cp -an "$ALF_SRC_TEMPLATES_CONFIG/blank/custom-"{mac,win}.gitconfig "$ALF_CONFIG_GIT/"
+  cp -aRv "$ALF_SRC_TEMPLATES_CONFIG/win/." "$ALF_CONFIG_WIN/"
+  cp -aRv "$ALF_SRC_TEMPLATES_CONFIG/git/." "$ALF_CONFIG_GIT/"
+  cp -anv "$ALF_SRC_TEMPLATES_CONFIG/blank/custom-"{mac,win}.gitconfig "$ALF_CONFIG_GIT/"
 
   # Remove any previous run-once files
   for file in $(find "$ALF_RUN_ONCE" -type f); do
     rm "$file"
   done
 
-  [[ -f "$ALF_SRC_TOOLS/post-update.zsh" ]] && cp -a "$ALF_SRC_TOOLS/post-update.zsh" "$ALF_RUN_ONCE/post-update-run-once-alf.zsh"
-  [[ -f "$ALF_USER/tools/post-update.zsh" ]] && cp -a "$ALF_USER/tools/post-update.zsh" "$ALF_RUN_ONCE/post-update-run-once-zshrcuser.zsh"
-  [[ -f "$ALF_WORK/tools/post-update.zsh" ]] && cp -a "$ALF_WORK/tools/post-update.zsh" "$ALF_RUN_ONCE/post-update-run-once-zshrcwork.zsh"
+  [[ -f "$ALF_SRC_TOOLS/post-update.zsh" ]] && cp -av "$ALF_SRC_TOOLS/post-update.zsh" "$ALF_RUN_ONCE/post-update-run-once-alf.zsh"
+  [[ -f "$ALF_USER/tools/post-update.zsh" ]] && cp -av "$ALF_USER/tools/post-update.zsh" "$ALF_RUN_ONCE/post-update-run-once-zshrcuser.zsh"
+  [[ -f "$ALF_WORK/tools/post-update.zsh" ]] && cp -av "$ALF_WORK/tools/post-update.zsh" "$ALF_RUN_ONCE/post-update-run-once-zshrcwork.zsh"
 
   if [[ $arg_flag == "-r" || $arg_flag == "--restart" ]]; then
     alf restartshell
