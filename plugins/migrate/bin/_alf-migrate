@@ -180,10 +180,11 @@ ppemphasis "Symlink home templates"
 templates_home=($(find "$ALF_SRC/templates/home" -name ".*"))
 ppinfo "templates_home: $templates_home"
 ppemphasis "home templates for loop"
-for file in ${templates_home[@]}; do
-  ppinfo "${file:t}"
-  ln -sf "$ALF_CUSTOM/alf/templates/home/${file:t}" "$HOME/${file:t}"
+for template_home_file in ${template_home_files[@]}; do
+  ppinfo "${template_home_file:t}"
+  ln -sf "$ALF_CUSTOM/alf/templates/home/${template_home_file:t}" "$HOME/${template_home_file:t}"
 done
+unset template_home_file{,s}
 
 ppemphasis "Copy over misc templates"
 ppdanger "ZSH: $ZSH"
@@ -213,22 +214,24 @@ ppdanger "Alf_SRC_TEMPLATES: $Alf_SRC_TEMPLATES"
 ppdanger "Alf_SRC_TEMPLATES_CONFIG: $Alf_SRC_TEMPLATES_CONFIG"
 ppdanger "Alf_SRC_THEMES: $Alf_SRC_THEMES"
 ppinfo $ALF_SRC/templates/home-${platform_type}/.gitconfig
-ppinfo $ALF_SRC/templates/config/win/.
-ppinfo $ALF_SRC/templates/config/git/.
+ppinfo $ALF_SRC/templates/config/win/*
+ppinfo $ALF_SRC/templates/config/git/*
 ppinfo $ALF_SRC/templates/config/blank/custom-mac.gitconfig
 ppinfo $ALF_SRC/templates/config/blank/custom-win.gitconfig
 # ------------------------------------------------------------------------------
 ln -sf  $ALF_SRC/templates/home-${platform_type}/.gitconfig $HOME/.gitconfig
-cp -aRv $ALF_SRC/templates/config/win/. $ALF_CUSTOM/config/win/
-cp -aRv $ALF_SRC/templates/config/git/. $ALF_CUSTOM/config/git/
+cp -aRv $ALF_SRC/templates/config/win/* $ALF_CUSTOM/config/win/
+cp -aRv $ALF_SRC/templates/config/git/* $ALF_CUSTOM/config/git/
 cp -anv $ALF_SRC/templates/config/blank/custom-mac.gitconfig $ALF_CUSTOM/config/git/
 cp -anv $ALF_SRC/templates/config/blank/custom-win.gitconfig $ALF_CUSTOM/config/git/
 
 ppemphasis "Remove any previous run-once files"
-for file in $(find "$ALF_RUN_ONCE" -type f); do
-  ppinfo "removing: $file"
-  rm "$file"
+remove_run_once_files=($(find "$ALF_RUN_ONCE" -type f))
+for remove_run_once_file in ${remove_run_once_files[@]}; do
+  ppinfo "removing: $remove_run_once_file"
+  rm "$remove_run_once_file"
 done
+unset remove_run_once_file{,s}
 
 [[ -f "$ALF_SRC_TOOLS/post-update.zsh" ]] && cp -av "$ALF_SRC_TOOLS/post-update.zsh" "$ALF_RUN_ONCE/post-update-run-once-alf.zsh"
 [[ -f "$ALF_USER/tools/post-update.zsh" ]] && cp -av "$ALF_USER/tools/post-update.zsh" "$ALF_RUN_ONCE/post-update-run-once-zshrcuser.zsh"
