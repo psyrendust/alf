@@ -227,6 +227,7 @@ cp -anv $ALF_SRC/templates/config/blank/custom-win.gitconfig $ALF_CUSTOM/config/
 
 ppemphasis "Remove any previous run-once files"
 remove_run_once_files=($(find "$ALF_RUN_ONCE" -type f))
+ppinfo "remove_run_once_files: ${remove_run_once_files[@]}"
 for remove_run_once_file in ${remove_run_once_files[@]}; do
   ppinfo "removing: $remove_run_once_file"
   rm "$remove_run_once_file"

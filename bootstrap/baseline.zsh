@@ -163,8 +163,8 @@ export ADOTDIR="$ALF_CUSTOM/antigen"
 export ALF_URL="/Volumes/SharedFolders/Home/psyrendust/github/alf"
 export OMZ_URL="https://github.com/robbyrussell/oh-my-zsh.git"
 export ALF_BACKUP_FOLDER="$ALF_CUSTOM/backup/$(date '+%Y%m%d')"
-mkdir -p -m 775 "$ALF_CUSTOM"
-mkdir -p -m 775 "$ALF_CONFIG"
+mkdir -p -m 775 "$ALF_CUSTOM/"{backup,config,epoch,logr,process,rprompt,run-once,symlink,updates,version}
+mkdir -p -m 775 "$ALF_CONFIG/"{git,ssh,win}
 mkdir -p -m 775 "$ADOTDIR"
 mkdir -p -m 775 "$ALF_BACKUP_FOLDER"
 
