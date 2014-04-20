@@ -13,8 +13,16 @@
 alias zshconfig="sbl ~/.zshrc"
 alias ohmyzsh="sbl ~/.oh-my-zsh"
 alias sourceohmyzsh="source ~/.zshrc"
-alias npmlist="npm -g ls --depth=0 2>/dev/null"
 alias gruntinitupdate='(for repo in $(ls "$HOME/.grunt-init"); do cd "$HOME/.grunt-init/$repo"; git pull origin master; done) >/dev/null'
+npmlist() {
+  if [[ ${#} < 1 ]]; then
+    npm -g ls --depth=0 2>/dev/null
+  else
+    echo $(npm -g ls --depth=0 2>/dev/null | while read i; do
+      echo $i | cut -d\  -f2 | cut -d@ -f1;
+    done) | sed 's/\/usr\/local\/lib\ //'
+  fi
+}
 
 
 
