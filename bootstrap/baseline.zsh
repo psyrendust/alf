@@ -299,15 +299,15 @@ if [[ -n $PLATFORM_IS_MAC ]]; then
   else
     ppsuccess "Homebrew already installed!"
   fi
-  ppemphasis "Make sure brew is up-to-date"
-  ppinfo "Check with brew doctor"
-  brew doctor
+  # ppemphasis "Make sure brew is up-to-date"
+  # ppinfo "Check with brew doctor"
+  # brew doctor
 
-  ppinfo "Make sure we’re using the latest Homebrew"
-  brew update
+  # ppinfo "Make sure we’re using the latest Homebrew"
+  # brew update
 
-  ppinfo "Upgrade any already-installed formulae"
-  brew upgrade
+  # ppinfo "Upgrade any already-installed formulae"
+  # brew upgrade
 
   # ppemphasis "Brew install some stuff"
   # if [[ -z $(_brew-is-installed "coreutils") ]]; then
@@ -395,10 +395,10 @@ if [[ -n $PLATFORM_IS_MAC ]]; then
   #   brew install bash
   # fi
 
-  if [[ -z $(_brew-is-installed "zsh") ]]; then
-    ppinfo "brew install zsh"
-    brew install zsh
-  fi
+  # if [[ -z $(_brew-is-installed "zsh") ]]; then
+  #   ppinfo "brew install zsh"
+  #   brew install zsh
+  # fi
 
   # if [[ -z $(cat /private/etc/shells | grep "/usr/local/bin/bash") ]]; then
   #   ppinfo "Add bash to the allowed shells list if it's not already there"
