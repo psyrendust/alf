@@ -29,6 +29,10 @@
 # export _alf_migrate_cwd="$( cd -P "$( dirname "$alf_migrate" )" && pwd )"
 # export _alf_migrate_root="${alf_migrate_cwd%/*}"
 # Print pretty colors to stdout in Green.
+# Print pretty colors to stdout in Cyan.
+function ppinfo() {
+  printf '\033[0;36m%s\033[0m\n' "  $@"
+}
 function ppsuccess() {
   printf '\033[0;32m%s\033[0m\n' "  $@"
 }
@@ -132,7 +136,7 @@ export Alf_SRC_TOOLS="$ALF_SRC/tools"
 export ALF_SRC="$ADOTDIR/repos/$(__alf-get-antigen-clone-dir $ALF_URL $ALF_BRANCH)"
 export ZSH="$ADOTDIR/repos/$(__alf-get-antigen-clone-dir $OMZ_URL)"
 export ZSH_CUSTOM="$ALF_SRC"
-ppemphasis "exports complete:"
+ppemphasis "exports complete"
 ppinfo "ZSH: $ZSH"
 ppinfo "ALF_SRC: $ALF_SRC"
 ppinfo "ALF_CUSTOM: $ALF_CUSTOM"
