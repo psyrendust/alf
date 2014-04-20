@@ -34,13 +34,14 @@ _alf-cwd() {
 # ------------------------------------------------------------------------------
 _alf-epoch() {
   local arg_flag="$1"
-  local arg_name="$ALF_EPOCH/${2:-default}"
+  local arg_target="${2:-default}"
+  local arg_file="$ALF_EPOCH/$arg_target"
   if [[ $arg_flag == "--set" ]]; then
-    echo "$(($(date +%s) / 60 / 60 / 24))" > "$arg_name"
+    echo "$(($(date +%s) / 60 / 60 / 24))" > "$arg_file"
   elif [[ $arg_flag == "--get" ]]; then
     # Get the epoch, if it doesn't exist create one
-    [[ -f "$arg_name" ]] || _alf-epoch --set "$arg_name"
-    echo "$(cat "$arg_name")"
+    [[ -f "$arg_file" ]] || _alf-epoch --set "$arg_target"
+    echo "$(cat "$arg_file")"
   fi
 }
 
