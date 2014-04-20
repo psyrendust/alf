@@ -28,16 +28,31 @@
 # done
 # export _alf_migrate_cwd="$( cd -P "$( dirname "$alf_migrate" )" && pwd )"
 # export _alf_migrate_root="${alf_migrate_cwd%/*}"
+# Print pretty colors to stdout in Green.
+function ppsuccess() {
+  printf '\033[0;32m%s\033[0m\n' "  $@"
+}
 
+# Print pretty colors to stdout in Purple.
+function ppemphasis() {
+  printf '\033[0;35m%s\033[0m\n' "$@"
+}
+
+# Print pretty colors to stdout in Brown.
+function ppwarning() {
+  printf '\033[0;33m%s\033[0m\n' "  $@"
+}
+
+# Print pretty colors to stdout in Red.
+function ppdanger() {
+  printf '\033[0;31m%s\033[0m\n' "  $@"
+}
 
 if [[ $# > 1 ]]; then
-  printf '\033[0;31m%s\033[0m\n' "Too many arguments"
+  pperror "Too many arguments"
   return 1
 fi
-pperror() {
-  printf '\033[0;31m%s\033[0m\n' "$@"
-}
-pperror "migrate!"
+ppemphasis "migrate!"
 # ------------------------------------------------------------------------------
 # Small helper function to get Antigen's clone dir for a given repo url
 # ------------------------------------------------------------------------------
@@ -84,7 +99,7 @@ export PLATFORM_IS_ALL=1
 local arg_flag=$1
 local platform_type="mac"
 
-pperror "exports..."
+ppemphasis "creating exports"
 export ALF_CUSTOM="$HOME/.alf"
 export ADOTDIR="$ALF_CUSTOM/antigen"
 # export ALF_URL="https://github.com/psyrendust/alf.git"
@@ -117,31 +132,33 @@ export Alf_SRC_TOOLS="$ALF_SRC/tools"
 export ALF_SRC="$ADOTDIR/repos/$(__alf-get-antigen-clone-dir $ALF_URL $ALF_BRANCH)"
 export ZSH="$ADOTDIR/repos/$(__alf-get-antigen-clone-dir $OMZ_URL)"
 export ZSH_CUSTOM="$ALF_SRC"
-pperror "exports complete:"
-echo "ALF_CUSTOM: $ALF_CUSTOM"
-echo "ADOTDIR: $ADOTDIR"
-echo "ALF_URL: $ALF_URL"
-echo "OMZ_URL: $OMZ_URL"
-echo "Alf_BACKUP: $Alf_BACKUP"
-echo "Alf_CONFIG: $Alf_CONFIG"
-echo "Alf_CONFIG_GIT: $Alf_CONFIG_GIT"
-echo "Alf_CONFIG_SSH: $Alf_CONFIG_SSH"
-echo "Alf_CONFIG_WIN: $Alf_CONFIG_WIN"
-echo "Alf_EPOCH: $Alf_EPOCH"
-echo "Alf_LOGR: $Alf_LOGR"
-echo "Alf_PROCESS: $Alf_PROCESS"
-echo "Alf_RPROMPT: $Alf_RPROMPT"
-echo "Alf_RUN_ONCE: $Alf_RUN_ONCE"
-echo "Alf_SYMLINK: $Alf_SYMLINK"
-echo "Alf_UPDATES: $Alf_UPDATES"
-echo "Alf_VERSION: $Alf_VERSION"
-echo "Alf_GRUNT_INIT: $Alf_GRUNT_INIT"
-echo "Alf_SRC_FONTS: $Alf_SRC_FONTS"
-echo "Alf_SRC_GIT_HOOKS: $Alf_SRC_GIT_HOOKS"
-echo "Alf_SRC_PLUGINS: $Alf_SRC_PLUGINS"
-echo "Alf_SRC_TEMPLATES: $Alf_SRC_TEMPLATES"
-echo "Alf_SRC_TEMPLATES_CONFIG: $Alf_SRC_TEMPLATES_CONFIG"
-echo "Alf_SRC_THEMES: $Alf_SRC_THEMES"
+ppemphasis "exports complete:"
+ppinfo "ZSH: $ZSH"
+ppinfo "ALF_SRC: $ALF_SRC"
+ppinfo "ALF_CUSTOM: $ALF_CUSTOM"
+ppinfo "ADOTDIR: $ADOTDIR"
+ppinfo "ALF_URL: $ALF_URL"
+ppinfo "OMZ_URL: $OMZ_URL"
+ppinfo "Alf_BACKUP: $Alf_BACKUP"
+ppinfo "Alf_CONFIG: $Alf_CONFIG"
+ppinfo "Alf_CONFIG_GIT: $Alf_CONFIG_GIT"
+ppinfo "Alf_CONFIG_SSH: $Alf_CONFIG_SSH"
+ppinfo "Alf_CONFIG_WIN: $Alf_CONFIG_WIN"
+ppinfo "Alf_EPOCH: $Alf_EPOCH"
+ppinfo "Alf_LOGR: $Alf_LOGR"
+ppinfo "Alf_PROCESS: $Alf_PROCESS"
+ppinfo "Alf_RPROMPT: $Alf_RPROMPT"
+ppinfo "Alf_RUN_ONCE: $Alf_RUN_ONCE"
+ppinfo "Alf_SYMLINK: $Alf_SYMLINK"
+ppinfo "Alf_UPDATES: $Alf_UPDATES"
+ppinfo "Alf_VERSION: $Alf_VERSION"
+ppinfo "Alf_GRUNT_INIT: $Alf_GRUNT_INIT"
+ppinfo "Alf_SRC_FONTS: $Alf_SRC_FONTS"
+ppinfo "Alf_SRC_GIT_HOOKS: $Alf_SRC_GIT_HOOKS"
+ppinfo "Alf_SRC_PLUGINS: $Alf_SRC_PLUGINS"
+ppinfo "Alf_SRC_TEMPLATES: $Alf_SRC_TEMPLATES"
+ppinfo "Alf_SRC_TEMPLATES_CONFIG: $Alf_SRC_TEMPLATES_CONFIG"
+ppinfo "Alf_SRC_THEMES: $Alf_SRC_THEMES"
 if [[ -n $PLATFORM_IS_CYGWIN ]]; then
   if [[ -z "$(echo $PATH | grep "cygwin-ln")" ]]; then
     # Ensure that we are using mklink in Cygwin
@@ -150,25 +167,34 @@ if [[ -n $PLATFORM_IS_CYGWIN ]]; then
   platform_type="win"
 fi
 
-# Symlink alf to normalize the path
+ppemphasis "Symlink alf to normalize the path"
+ppinfo "from: $ALF_SRC"
+ppinfo "  to: $ALF_CUSTOM/alf"
 ln -sf "$ALF_SRC" "$ALF_CUSTOM/alf"
 
-# Symlink home templates
-templates_home=(find "$ALF_SRC/templates/home" -name ".*")
-echo $templates_home
+ppemphasis "Symlink home templates"
+templates_home=($(find "$ALF_SRC/templates/home" -name ".*"))
+ppinfo "templates_home: $templates_home"
+ppemphasis "home templates for loop"
 for file in ${templates_home[@]}; do
+  ppinfo "${file:t}"
   ln -sf "$ALF_CUSTOM/alf/templates/home/${file:t}" "$HOME/${file:t}"
 done
 
-# Copy over templates
+ppemphasis "Copy over misc templates"
+ppinfo "$ALF_SRC_TEMPLATES/home-${platform_type}/.gitconfig"
+ppinfo "$ALF_SRC_TEMPLATES_CONFIG/win/."
+ppinfo "$ALF_SRC_TEMPLATES_CONFIG/git/."
+ppinfo "$ALF_SRC_TEMPLATES_CONFIG/blank/custom-"{mac,win}.gitconfig
 # ------------------------------------------------------------------------------
 ln -sf "$ALF_SRC_TEMPLATES/home-${platform_type}/.gitconfig" "$HOME/.gitconfig"
 cp -aRv "$ALF_SRC_TEMPLATES_CONFIG/win/." "$ALF_CONFIG_WIN/"
 cp -aRv "$ALF_SRC_TEMPLATES_CONFIG/git/." "$ALF_CONFIG_GIT/"
 cp -anv "$ALF_SRC_TEMPLATES_CONFIG/blank/custom-"{mac,win}.gitconfig "$ALF_CONFIG_GIT/"
 
-# Remove any previous run-once files
+ppemphasis "Remove any previous run-once files"
 for file in $(find "$ALF_RUN_ONCE" -type f); do
+  ppinfo "removing: $file"
   rm "$file"
 done
 
@@ -177,5 +203,6 @@ done
 [[ -f "$ALF_WORK/tools/post-update.zsh" ]] && cp -av "$ALF_WORK/tools/post-update.zsh" "$ALF_RUN_ONCE/post-update-run-once-zshrcwork.zsh"
 
 if [[ $arg_flag == "-r" || $arg_flag == "--restart" ]]; then
+  ppemphasis "restart shell"
   alf restartshell
 fi
