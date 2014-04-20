@@ -186,6 +186,8 @@ for file in ${templates_home[@]}; do
 done
 
 ppemphasis "Copy over misc templates"
+ppinfo "ALF_SRC_TEMPLATES: $ALF_SRC_TEMPLATES"
+ppinfo "ALF_SRC_TEMPLATES_CONFIG: $ALF_SRC_TEMPLATES_CONFIG"
 ppinfo "$ALF_SRC_TEMPLATES/home-${platform_type}/.gitconfig"
 ppinfo "$ALF_SRC_TEMPLATES_CONFIG/win/."
 ppinfo "$ALF_SRC_TEMPLATES_CONFIG/git/."
@@ -208,5 +210,8 @@ done
 
 if [[ $arg_flag == "-r" || $arg_flag == "--restart" ]]; then
   ppemphasis "restart shell"
-  alf restartshell
+  if [[ -z "$(echo $(print -l ${(k)functions} | grep "^_alf-restartshell"))" ]]; then
+    source "$ALF_SRC/plugins/system/init.zsh"
+  fi
+  _alf-restartshell
 fi
