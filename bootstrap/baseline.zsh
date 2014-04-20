@@ -65,7 +65,7 @@ function ppinfo() {
   if [[ -n $has_option ]]; then
     shift && printf '\033[0;36m%s\033[0m' "$@"
   else
-    printf '\033[0;36m%s\033[0m\n' "$@"
+    printf '\033[0;36m%s\033[0m\n' "  $@"
   fi
 }
 
@@ -77,7 +77,7 @@ function ppsuccess() {
   if [[ -n $has_option ]]; then
     shift && printf '\033[0;32m%s\033[0m' "$@"
   else
-    printf '\033[0;32m%s\033[0m\n' "$@"
+    printf '\033[0;32m%s\033[0m\n' "  $@"
   fi
 }
 
@@ -101,7 +101,7 @@ function ppwarning() {
   if [[ -n $has_option ]]; then
     shift && printf '\033[0;33m%s\033[0m' "$@"
   else
-    printf '\033[0;33m%s\033[0m\n' "$@"
+    printf '\033[0;33m%s\033[0m\n' "  $@"
   fi
 }
 
@@ -113,7 +113,7 @@ function ppdanger() {
   if [[ -n $has_option ]]; then
     shift && printf '\033[0;31m%s\033[0m' "$@"
   else
-    printf '\033[0;31m%s\033[0m\n' "$@"
+    printf '\033[0;31m%s\033[0m\n' "  $@"
   fi
 }
 
