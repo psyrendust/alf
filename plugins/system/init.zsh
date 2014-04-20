@@ -127,12 +127,12 @@ _alf-restartshell() {
     # close the current tab we are on
     ppemphasis "Restarting iTerm Shell..."
     sleep 1
-    osascript "$ALF_SRC_TOOLS/restart-iterm.scpt"
+    osascript "$ALF_SRC/tools/restart-iterm.scpt"
   elif [[ -n $PLATFORM_IS_CYGWIN ]]; then
     # If we are running cygwin we can restart the current console
     ppemphasis "Restarting Cygwin Shell..."
     sleep 1
-    cygstart "$ALF_SRC_TOOLS/restart-cygwin.vbs"
+    cygstart "$ALF_SRC/tools/restart-cygwin.vbs"
   fi
 }
 
