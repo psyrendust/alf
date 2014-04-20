@@ -219,10 +219,10 @@ ppinfo $ALF_SRC/templates/config/blank/custom-mac.gitconfig
 ppinfo $ALF_SRC/templates/config/blank/custom-win.gitconfig
 # ------------------------------------------------------------------------------
 ln -sf  $ALF_SRC/templates/home-${platform_type}/.gitconfig $HOME/.gitconfig
-cp -aRv $ALF_SRC/templates/config/win/. ${ALF_CONFIG_WIN}/
-cp -aRv $ALF_SRC/templates/config/git/. ${ALF_CONFIG_GIT}/
-cp -anv $ALF_SRC/templates/config/blank/custom-mac.gitconfig ${ALF_CONFIG_GIT}/
-cp -anv $ALF_SRC/templates/config/blank/custom-win.gitconfig ${ALF_CONFIG_GIT}/
+cp -aRv $ALF_SRC/templates/config/win/. $ALF_CUSTOM/config/win/
+cp -aRv $ALF_SRC/templates/config/git/. $ALF_CUSTOM/config/git/
+cp -anv $ALF_SRC/templates/config/blank/custom-mac.gitconfig $ALF_CUSTOM/config/git/
+cp -anv $ALF_SRC/templates/config/blank/custom-win.gitconfig $ALF_CUSTOM/config/git/
 
 ppemphasis "Remove any previous run-once files"
 for file in $(find "$ALF_RUN_ONCE" -type f); do
