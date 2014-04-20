@@ -212,15 +212,17 @@ ppdanger "Alf_SRC_PLUGINS: $Alf_SRC_PLUGINS"
 ppdanger "Alf_SRC_TEMPLATES: $Alf_SRC_TEMPLATES"
 ppdanger "Alf_SRC_TEMPLATES_CONFIG: $Alf_SRC_TEMPLATES_CONFIG"
 ppdanger "Alf_SRC_THEMES: $Alf_SRC_THEMES"
-ppinfo "$ALF_SRC_TEMPLATES/home-${platform_type}/.gitconfig"
-ppinfo "$ALF_SRC_TEMPLATES_CONFIG/win/."
-ppinfo "$ALF_SRC_TEMPLATES_CONFIG/git/."
-ppinfo "$ALF_SRC_TEMPLATES_CONFIG/blank/custom-"{mac,win}.gitconfig
+ppinfo ${ALF_SRC_TEMPLATES}/home-${platform_type}/.gitconfig
+ppinfo ${ALF_SRC_TEMPLATES_CONFIG}/win/.
+ppinfo ${ALF_SRC_TEMPLATES_CONFIG}/git/.
+ppinfo ${ALF_SRC_TEMPLATES_CONFIG}/blank/custom-mac.gitconfig
+ppinfo ${ALF_SRC_TEMPLATES_CONFIG}/blank/custom-win.gitconfig
 # ------------------------------------------------------------------------------
-ln -sf "$ALF_SRC_TEMPLATES/home-${platform_type}/.gitconfig" "$HOME/.gitconfig"
-cp -aRv "$ALF_SRC_TEMPLATES_CONFIG/win/." "$ALF_CONFIG_WIN/"
-cp -aRv "$ALF_SRC_TEMPLATES_CONFIG/git/." "$ALF_CONFIG_GIT/"
-cp -anv "$ALF_SRC_TEMPLATES_CONFIG/blank/custom-"{mac,win}.gitconfig "$ALF_CONFIG_GIT/"
+ln -sf  ${ALF_SRC_TEMPLATES}/home-${platform_type}/.gitconfig $HOME/.gitconfig
+cp -aRv ${ALF_SRC_TEMPLATES_CONFIG}/win/. ${ALF_CONFIG_WIN}/
+cp -aRv ${ALF_SRC_TEMPLATES_CONFIG}/git/. ${ALF_CONFIG_GIT}/
+cp -anv ${ALF_SRC_TEMPLATES_CONFIG}/blank/custom-mac.gitconfig ${ALF_CONFIG_GIT}/
+cp -anv ${ALF_SRC_TEMPLATES_CONFIG}/blank/custom-win.gitconfig ${ALF_CONFIG_GIT}/
 
 ppemphasis "Remove any previous run-once files"
 for file in $(find "$ALF_RUN_ONCE" -type f); do
