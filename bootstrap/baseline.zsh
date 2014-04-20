@@ -434,8 +434,8 @@ if [[ -n $PLATFORM_IS_MAC ]]; then
 
   export HOMEBREW_CASK_OPTS="--appdir=/Applications --binarydir=/usr/local/bin --caskroom=/opt/homebrew-cask/Caskroom --fontdir=~/Library/Fonts --input_methoddir=~/Library/Input\ Methods --prefpanedir=~/Library/PreferencePanes --qlplugindir=~/Library/QuickLook --screen_saverdir=~/Library/Screen\ Savers --widgetdir=~/Library/Widgets"
 
-  ppinfo "Install some cask apps"
-  brew cask install iterm2 sublime-text-dev
+  # ppinfo "Install some cask apps"
+  # brew cask install iterm2 sublime-text-dev
 fi
 
 ppemphasis "Installing Antigen"
