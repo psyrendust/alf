@@ -10,5 +10,6 @@
 # ------------------------------------------------------------------------------
 
 # Bind UP and DOWN arrow keys to zsh-history-substring-search
-bindkey '\e[A' history-substring-search-up
-bindkey '\e[B' history-substring-search-down
+zmodload zsh/terminfo
+bindkey "$terminfo[kcuu1]" history-substring-search-up
+bindkey "$terminfo[kcud1]" history-substring-search-down
