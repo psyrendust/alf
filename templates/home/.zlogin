@@ -14,11 +14,8 @@
 
 
 # Load Custom aliases and key bindings (useful if you want to override Alf's defaults)
-source "$ALF_CUSTOM_ALIASES" 2>/dev/null
-source "$ALF_CUSTOM_KEY_BINDINGS" 2>/dev/null
-
-# Last run helper functions
-source "$ALF_SRC_TOOLS/last-run.zsh" 2>/dev/null
+source "$ALF_CUSTOM_ALIASES"
+source "$ALF_CUSTOM_KEY_BINDINGS"
 
 
 
