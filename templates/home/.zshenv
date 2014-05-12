@@ -13,7 +13,7 @@
 #   The MIT License (MIT) <http://psyrendust.mit-license.org/2014/license.html>
 # ------------------------------------------------------------------------------
 
-_alf_startup_time_begin=$(echo /usr/local/bin/gdate +%s%N 2>/dev/null || 0)
+_alf_startup_time_begin=$(/usr/local/bin/gdate +%s%N 2>/dev/null || 0)
 # ------------------------------------------------------------------------------
 # Small helper function to get Antigen's clone dir for a given repo url
 # ------------------------------------------------------------------------------
@@ -30,8 +30,6 @@ __alf-get-antigen-clone-dir() {
               -e 's.:.-COLON-.g' \
               -e 's.|.-PIPE-.g'
 }
-
-echo "-->"
 
 # ------------------------------------------------------------------------------
 # Do some platform checks so we don't have to keep doing it later
