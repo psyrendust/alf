@@ -19,13 +19,13 @@ Alf will work with any recent release of Zsh, but the minimum recommended versio
 This method will setup everything you need:
 
 ```shell
-\curl -sSL https://raw.githubusercontent.com/psyrendust/alf/develop/bootstrap/baseline.zsh | zsh
+\curl -sSL https://raw.githubusercontent.com/psyrendust/alf/master/bootstrap/baseline.zsh | zsh
 ```
 
 Or you can pass an optional argument to load a specific branch:
 
 ```shell
-\curl -sSL https://raw.githubusercontent.com/psyrendust/alf/develop/bootstrap/baseline.zsh | zsh -s develop
+\curl -sSL https://raw.githubusercontent.com/psyrendust/alf/master/bootstrap/baseline.zsh | zsh -s develop
 ```
 
 
