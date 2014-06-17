@@ -114,6 +114,9 @@ compdef _git glg=git-log-pretty
 alias gls='_git-log-pretty-grep-begin-sublime'
 compdef _git glg=git-log-pretty
 
+alias gcundo='git reset --soft HEAD^'
+compdef _git gcundo=git-reset-soft-head
+
 # alias gfupdate='git-flow-update'
 
 function _current_branch() {
