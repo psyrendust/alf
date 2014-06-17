@@ -106,21 +106,29 @@ __alf-version() {
   local arg_target="${2:-alf}"
   local version_file="$ALF_VERSION/$arg_target.info"
   if [[ $arg_flag == "--set" ]]; then
+    # Uses a subshell to cd's into the ALF_SRC folder to run git commands
     _alf_helper_git() {
       cd "$ALF_SRC"
       echo "$(git $@)"
     }
-    # Get the version string from git (eg. v0.1.4-248-g5840656)
+    # Gets the name of the current local git branch
+    _alf_helper_get_alf_current_branch() {
+      local ref
+      ref=$(command cd "$ALF_SRC" && git symbolic-ref HEAD 2> /dev/null) || \
+      ref=$(command cd "$ALF_SRC" && git rev-parse --short HEAD 2> /dev/null) || return
+      echo "${ref#refs/heads/}"
+    }
     local version version_tag version_commit version_sha version_date version_string version_prefix
-    version=$(_alf_helper_git describe 2>&1)
-    if [[ -n $(echo $version | grep "fatal:") ]]; then
+    if [[ -n $(_alf_helper_get_alf_current_branch | grep "master") ]]; then
       # Get the tag number (eg. v0.1.4)
       version_tag=$(_alf_helper_git describe --tags 2>&1)
       # Get the total number of commits (eg. 248)
-      version_commit=$(git shortlog | grep -E '^[ ]+\w+' | wc -l)
+      version_commit=$(_alf_helper_git shortlog | grep -E '^[ ]+\w+' | wc -l)
       # Get the latest sha (eg. g5840656)
-      version_sha=$(git log --pretty=format:'%h' -n 1)
+      version_sha=$(_alf_helper_git log --pretty=format:'%h' -n 1)
     else
+      # Get the version string from git (eg. v0.1.4-248-g5840656)
+      version=$(_alf_helper_git describe --long 2>&1)
       # Get the tag number (eg. v0.1.4)
       version_tag=$(echo $version | cut -d- -f 1)
       # Get the total number of commits (eg. 248)
