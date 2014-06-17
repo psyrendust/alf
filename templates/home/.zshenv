@@ -60,7 +60,7 @@ export PLATFORM_IS_ALL=1
 # Alf settings
 # ------------------------------------------------------------------------------
 # Uncomment to change how often before auto-updates occur for Alf? (in days)
-export ALF_UPDATE_DAYS=1
+export ALF_UPDATE_DAYS=30
 
 # Set name of the theme to load using `Antigen theme`
 export ALF_THEME="sindresorhus/pure"
