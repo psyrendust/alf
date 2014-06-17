@@ -69,7 +69,7 @@ export ALF_THEME="sindresorhus/pure"
 # export ALF_PRETTY_PRINT_VERBOSE=1
 
 # Uncomment this to disable auto-update checks for Alf
-# export ALF_DISABLE_AUTO_UPDATE="true"
+export ALF_DISABLE_AUTO_UPDATE="true"
 
 # Uncomment this to set your own custom right prompt id
 export ALF_CONFIG_PRPROMPT_ID="%F{magenta}[ Alf ]%f"
