@@ -9,23 +9,23 @@
 #   The MIT License (MIT) <http://psyrendust.mit-license.org/2014/license.html>
 # ------------------------------------------------------------------------------
 
-alias flowfs='git flow feature start'
-compdef _git flowfs=git-flow-feature-start
+alias gffstart='git flow feature start'
+compdef _git gffstart=git-flow-feature-start
 
-alias flowff='git flow feature finish'
-compdef _git flowfs=git-flow-feature-finish
+alias gfffinish='git flow feature finish'
+compdef _git gfffinish=git-flow-feature-finish
 
-alias flowrs='git flow release start'
-compdef _git flowrs=git-flow-release-start
+alias gfrstart='git flow release start'
+compdef _git gfrstart=git-flow-release-start
 
-alias flowrf='git flow release finish'
+alias gfrfinish='git flow release finish'
 compdef _git flowrf=git-flow-release-finish
 
-alias flowhs='git flow hotfix start'
-compdef _git flowhs=git-flow-hotfix-start
+alias gfhstart='git flow hotfix start'
+compdef _git gfhstart=git-flow-hotfix-start
 
-alias flowhf='git flow hotfix finish'
-compdef _git flowhf=git-flow-hotfix-finish
+alias gfhfinish='git flow hotfix finish'
+compdef _git gfhfinish=git-flow-hotfix-finish
 
 alias gs='git status'
 compdef _git gs=git-status
@@ -113,6 +113,9 @@ compdef _git glg=git-log-pretty
 
 alias gls='_git-log-pretty-grep-begin-sublime'
 compdef _git glg=git-log-pretty
+
+alias gcundo='git reset --soft HEAD^'
+compdef _git gcundo=git-reset-soft-head
 
 # alias gfupdate='git-flow-update'
 

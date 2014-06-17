@@ -13,7 +13,7 @@
 #   The MIT License (MIT) <http://psyrendust.mit-license.org/2014/license.html>
 # ------------------------------------------------------------------------------
 
-_alf_startup_time_begin=$(/usr/local/bin/gdate +%s%N 2>/dev/null || 0)
+_alf_startup_time_begin=$(/usr/local/bin/gdate +%s%N 2>/dev/null || echo 0)
 # ------------------------------------------------------------------------------
 # Small helper function to get Antigen's clone dir for a given repo url
 # ------------------------------------------------------------------------------
@@ -60,7 +60,7 @@ export PLATFORM_IS_ALL=1
 # Alf settings
 # ------------------------------------------------------------------------------
 # Uncomment to change how often before auto-updates occur for Alf? (in days)
-export ALF_UPDATE_DAYS=1
+export ALF_UPDATE_DAYS=30
 
 # Set name of the theme to load using `Antigen theme`
 export ALF_THEME="sindresorhus/pure"
@@ -69,7 +69,7 @@ export ALF_THEME="sindresorhus/pure"
 # export ALF_PRETTY_PRINT_VERBOSE=1
 
 # Uncomment this to disable auto-update checks for Alf
-# export ALF_DISABLE_AUTO_UPDATE="true"
+export ALF_DISABLE_AUTO_UPDATE="true"
 
 # Uncomment this to set your own custom right prompt id
 export ALF_CONFIG_PRPROMPT_ID="%F{magenta}[ Alf ]%f"
