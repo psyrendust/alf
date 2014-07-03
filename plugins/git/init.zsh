@@ -114,7 +114,7 @@ compdef _git glg=git-log-pretty
 alias gls='_git-log-pretty-grep-begin-sublime'
 compdef _git glg=git-log-pretty
 
-alias gcundo='git reset --soft HEAD^'
+alias gcundo='git reset --soft HEAD~1'
 compdef _git gcundo=git-reset-soft-head
 
 # alias gfupdate='git-flow-update'
