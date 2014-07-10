@@ -23,6 +23,7 @@
 #   The MIT License (MIT) <http://psyrendust.mit-license.org/2014/license.html>
 # ------------------------------------------------------------------------------
 if [[ -n $PLATFORM_IS_CYGWIN ]]; then
+  local uid="$(date +%s)-${RANDOM}"
   local template_bat="${0:h:h}/templates/ln.bat"
   local template_vbs="${0:h:h}/templates/ln.vbs"
   while getopts "bdfiLnPrsStTv" opts; do
@@ -59,8 +60,8 @@ if [[ -n $PLATFORM_IS_CYGWIN ]]; then
       local target=$(cygpath -ma ${arg_target} | sed "s/\//\\\\/g")
       local link_name=$(cygpath -ma ${arg_link_name} | sed "s/\//\\\\/g")
       # Create bat and vbs paths
-      local symlink_bat="$symlink_loc/$namespace.bat"
-      local symlink_vbs="$symlink_loc/$namespace.vbs"
+      local symlink_bat="$symlink_loc/$namespace-${uid}.bat"
+      local symlink_vbs="$symlink_loc/$namespace-${uid}.vbs"
       # Create path to launch vbs
       local cygwin_bat=$(cygpath -ma ${symlink_bat} | sed "s/\//\\\\/g")
 
