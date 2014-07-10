@@ -96,8 +96,8 @@ HELPDIR=/usr/local/share/zsh/helpfiles
 
 
 # Output Alf's current version number
-_alf_startup_time_end=$(/usr/local/bin/gdate +%s%N 2>/dev/null || echo 0)
-_alf_startup_time_diff=" \033[1;35m$(( ($_alf_startup_time_end - $_alf_startup_time_begin) / 1000000 ))ms\033[0m"
+_alf_startup_time_end=$(__alf-gettime)
+_alf_startup_time_diff=" \033[1;35m$(__alf-gettimediff $_alf_startup_time_end $_alf_startup_time_begin)\033[0m"
 alf --version
 
 
