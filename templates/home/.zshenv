@@ -13,7 +13,23 @@
 #   The MIT License (MIT) <http://psyrendust.mit-license.org/2014/license.html>
 # ------------------------------------------------------------------------------
 
-_alf_startup_time_begin=$(/usr/local/bin/gdate +%s%N 2>/dev/null || echo 0)
+
+# ------------------------------------------------------------------------------
+# Small helper function to process startup time
+# ------------------------------------------------------------------------------
+__alf-gettime() {
+  perl <<EOF
+use Time::HiRes qw(time);
+print time;
+EOF
+}
+__alf-gettimediff() {
+  perl <<EOF
+print sprintf('%.0f', ($1 - $2)*1000), "ms";
+EOF
+}
+_alf_startup_time_begin="$(__alf-gettime)"
+
 # ------------------------------------------------------------------------------
 # Small helper function to get Antigen's clone dir for a given repo url
 # ------------------------------------------------------------------------------
@@ -34,20 +50,22 @@ __alf-get-antigen-clone-dir() {
 # ------------------------------------------------------------------------------
 # Do some platform checks so we don't have to keep doing it later
 # ------------------------------------------------------------------------------
-if [[ $('uname') == *Darwin* ]]; then
+export ZSH_UNAME=`uname`
+
+if [[ $ZSH_UNAME == *Darwin* ]]; then
   # We are using OS X
   export PLATFORM_IS_MAC=1
 
-elif [[ $('uname') == *CYGWIN* ]]; then
+elif [[ $ZSH_UNAME == *CYGWIN* ]]; then
   # We are using Cygwin in Windows
   export PLATFORM_IS_CYGWIN=1
   # We are also in a virtualized Windows environment
-  if [[ -f $(find /cygdrive/z -maxdepth 1 -type f -name ".zshrc.lnk") ]]; then
+  if [[ -f "/cygdrive/z/.zshrc.lnk" ]]; then
     export PLATFORM_IS_VM=1
     export ALF_HOST="/cygdrive/z/.alf"
   fi
 
-elif [[ $('uname') == *Linux* ]]; then
+elif [[ $ZSH_UNAME == *Linux* ]]; then
   # We are using Linux
   export PLATFORM_IS_LINUX=1
 fi
