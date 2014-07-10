@@ -113,7 +113,11 @@ _alf-migrate() {
   export Alf_SRC_TOOLS="$ALF_SRC/tools"
 
   # Define a different branch for Alf, helpful for doing dev
-  [[ -s "$ALF_CONFIG/branch" ]] && export ALF_BRANCH="--branch=$(echo `cat $ALF_CONFIG/branch`)"
+  if [[ -s "$ALF_CONFIG/branch" ]]; then
+    export ALF_BRANCH="--branch=$(echo `cat $ALF_CONFIG/branch`)"
+  else
+    export ALF_BRANCH=""
+  fi
   export ALF_SRC="$ADOTDIR/repos/$(__alf-get-antigen-clone-dir $ALF_URL $ALF_BRANCH)"
   export ZSH="$ADOTDIR/repos/$(__alf-get-antigen-clone-dir $OMZ_URL)"
   export ZSH_CUSTOM="$ALF_SRC"
