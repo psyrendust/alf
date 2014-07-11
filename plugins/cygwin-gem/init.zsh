@@ -30,7 +30,6 @@ _gem-list() {
   echo "${$(ls "$ALF_RUBY_BIN" | grep ".bat$" | tr "\n" ":")%:}"
 }
 
-
 # Manage aliases for installed gems
 # Adds an alias to the associated .bat when executing "gem install".
 # Removes an alias when executing "gem uninstall".
@@ -40,15 +39,29 @@ _gem-alias() {
     uninstall_alias=1
   fi
   shift
-  local args_list=( $(echo $@ | tr ":" " ") )
-  local curr_gems=( $(_gem-list | tr ":" " ") )
+  local args_list=()
+  if [[ ${#@} > 0 ]]; then
+    args_list=( $(echo $@ | tr ":" " ") )
+  fi
+  local curr_gems=()
+  for curr_gem in $(_gem-list | tr ":" " "); do
+    curr_gems+=( "$curr_gem" )
+  done
+  unset curr_gem
   local diff_gems=()
   # Add gem.bat if the array is empty so that it can be filtered out later.
   # We do this because we have a function called "gem" and we don't need
   # an alias to replace this function.
   [[ ${#args_list} == 0 ]] && args_list=( gem.bat )
-  local gems_list_sm=("${args_list[@]}")
-  local gems_list_lg=("${curr_gems[@]}")
+  local gems_list_sm=()
+  local gems_list_lg=()
+  # Had to do a weird assignment hack to get this working right
+  for gem_sm in ${gems_list_sm[@]}; do
+    gems_list_sm+=( "$gem_sm" )
+  done
+  for gem_lg in ${gems_list_lg[@]}; do
+    gems_list_lg+=( "$gem_lg" )
+  done
   # Find the largest array
   if [[ ${#gems_list_sm} -gt ${#gems_list_lg} ]]; then
     gems_list_sm=("${curr_gems[@]}")
