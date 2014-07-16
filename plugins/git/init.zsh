@@ -57,6 +57,9 @@ compdef _git gcob=git-checkout-b
 alias gcobu='_git-checkout-branch upstream'
 compdef _git gcob=git-checkout-b
 
+alias gm='git merge'
+compdef _git gm=git-merge
+
 alias gmfrom='_git-merge-from'
 compdef _git gmfrom=git-merge
 
