@@ -166,7 +166,7 @@ function _git-merge-from() {
   echo "stashing any changes"
   gsdel
   echo "merging $target_branch into $current_branch"
-  gm $target_branch
+  git merge $target_branch
 }
 
 # update branch from origin and merge it into current branch
@@ -175,7 +175,7 @@ function _git-merge-from-origin() {
   echo "fetching from origin $1"
   gfo $1:$1
   echo "merging origin $1 into $current_branch"
-  gm $1
+  git merge $1
 }
 
 # update branch from upstream and merge it into current branch
@@ -184,7 +184,7 @@ function _git-merge-from-upstream() {
   echo "fetching from upstream $1"
   gfu $1:$1
   echo "merging upstream $1 into $current_branch"
-  gm $1
+  git merge $1
 }
 
 # update branch from root and merge it into current branch
@@ -193,7 +193,7 @@ function _git-merge-from-root() {
   echo "fetching from upstream $1"
   gfr $1:$1
   echo "merging root $1 into $current_branch"
-  gm $1
+  git merge $1
 }
 
 # clean up and remove any *.orig files created from a merge conflict
