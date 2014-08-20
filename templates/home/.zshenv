@@ -170,136 +170,6 @@ zstyle ':alf:paths:src' paths \
   'SRC_TOOLS' '$ALF_SRC/tools'
 
 
-# ------------------------------------------------------------------------------
-# Define plugins to load into oh-my-zsh
-# ------------------------------------------------------------------------------
-# An array of plugins to load. Each value can contain a colon separated list.
-# The first parameter should be the platform type (optional). The 2nd parameter
-# should be the plugins name.
-#
-# Usage:
-#   '[plugin name]'
-#   '[os type]:[plugin name]'
-#
-# OS in which to install the plugin.
-#   ALL:    All system types
-#   MAC:    Mac OS X
-#   LINUX:  Linux
-#   CYGWIN: Windows running Cygwin
-#   VM:     Windows running in a VM
-#
-zstyle ':alf:load:plugins:default' plugins \
-  '#  :alf plugins' \
-  'ALL:alias-grep' \
-  'ALL:git' \
-  'ALL:grunt-autocomplete' \
-  'ALL:migrate' \
-  'ALL:mkcd' \
-  'ALL:refresh' \
-  'MAC:apache2' \
-  '#  :oh-my-zsh plugins' \
-  'ALL:bower' \
-  'ALL:colorize' \
-  'ALL:copydir' \
-  'ALL:copyfile' \
-  'ALL:cp' \
-  'ALL:encode64' \
-  'ALL:extract' \
-  'ALL:gem' \
-  'ALL:git' \
-  'ALL:git-flow-avh' \
-  'ALL:gitfast' \
-  'ALL:history' \
-  'ALL:node' \
-  'ALL:npm' \
-  'ALL:ruby' \
-  'ALL:systemadmin' \
-  'ALL:urltools' \
-  'MAC:brew' \
-  'MAC:osx'
-
-
-
-# ------------------------------------------------------------------------------
-# Define plugins to load into Antigen
-# ------------------------------------------------------------------------------
-zstyle ':alf:antigen:all' bundles \
-  'fasd' \
-  '$ALF_URL $ALF_BRANCH' \
-  '$ALF_URL $ALF_BRANCH plugins/colored-man' \
-  '$ALF_THEME' \
-  'zsh-users/zaw' \
-  'zsh-users/zsh-completions src' \
-  'zsh-users/zsh-syntax-highlighting' \
-  'zsh-users/zsh-history-substring-search' \
-
-# zstyle ':alf:antigen:mac' bundles \
-# zstyle ':alf:antigen:linux' bundles \
-# zstyle ':alf:antigen:cygwin' bundles \
-# zstyle ':alf:antigen:vm' bundles \
-
-
-
-# ------------------------------------------------------------------------------
-# Define syntax highlighters
-# ------------------------------------------------------------------------------
-zstyle ':alf:module:syntax-highlighting' highlighters \
-  'main' \
-  'brackets' \
-  'pattern' \
-  'cursor' \
-  'root'
-
-# Set syntax highlighting styles.
-# ------------------------------------------------------------------------------
-#                        default: parts of the buffer that do not match anything (default: none)
-#                  unknown-token: unknown tokens / errors (default: fg=red,bold)
-#                  reserved-word: shell reserved words (default: fg=yellow)
-#                          alias: aliases (default: fg=green)
-#                        builtin: shell builtin commands (default: fg=green)
-#                        command: commands (default: fg=green)
-#               commandseparator: command separation tokens (default: none)
-#                     precommand: precommands (i.e. exec, builtin, ...) (default: fg=green,underline)
-#                       function: functions (default: fg=green)
-#                 hashed-command: hashed commands (default: fg=green)
-#           single-hyphen-option: single hyphen options (default: none)
-#           double-hyphen-option: double hyphen options (default: none)
-#                         assign: variable assignments (default: none)
-#                       globbing: globbing expressions (default: fg=blue)
-#  dollar-double-quoted-argument: dollar double quoted arguments (default: fg=cyan)
-#         single-quoted-argument: single quoted arguments (default: fg=yellow)
-#         double-quoted-argument: double quoted arguments (default: fg=yellow)
-#           back-quoted-argument: backquoted expressions (default: none)
-#    back-double-quoted-argument: back double quoted arguments (default: fg=cyan)
-#              history-expansion: history expansion expressions (default: fg=blue)
-#                           path: paths (default: underline)
-#                    path_approx: approximated paths (default: fg=yellow,underline)
-#                    path_prefix: path prefixes (default: underline)
-zstyle ':alf:module:syntax-highlighting' styles \
-  'default' 'none' \
-  'unknown-token' 'fg=red,bold' \
-  'reserved-word' 'yellow,bold' \
-  'alias' 'fg=green' \
-  'builtin' 'fg=green' \
-  'command' 'fg=green' \
-  'commandseparator' 'fg=green' \
-  'precommand' 'fg=green' \
-  'function' 'fg=green' \
-  'hashed-command' 'fg=green' \
-  'single-hyphen-option' 'fg=green,bold' \
-  'double-hyphen-option' 'fg=green,bold' \
-  'assign' 'fg=magenta,bold' \
-  'globbing' 'fg=magenta,bold' \
-  'dollar-double-quoted-argument' 'fg=magenta' \
-  'single-quoted-argument' 'fg=blue,bold' \
-  'double-quoted-argument' 'fg=blue,bold' \
-  'back-quoted-argument' 'fg=cyan,bold' \
-  'back-double-quoted-argument' 'fg=cyan,bold' \
-  'history-expansion' 'fg=cyan,bold' \
-  'path' 'fg=blue,bold' \
-  'path_approx' 'fg=blue,bold' \
-  'path_prefix' 'fg=blue,bold'
-
 
 # ------------------------------------------------------------------------------
 # Configure PATHS for executables
@@ -378,9 +248,11 @@ zstyle -a ':alf:paths:default' paths 'alf_default_paths'
 for alf_default_path in "${(k)alf_default_paths[@]}"; do
   eval "export ALF_${alf_default_path}=\"$alf_default_paths[$alf_default_path]\""
   default_path="$(eval "echo \"\$ALF_$alf_default_path\"")"
-  if [[ ! -d $default_path ]]; then
-    mkdir -p "$default_path"
-  fi
+  {
+    if [[ ! -d $default_path ]]; then
+      mkdir -p "$default_path"
+    fi
+  } &!
   unset default_path
 done
 unset alf_default_paths{s,}
@@ -442,6 +314,7 @@ unset _alf_manpath_pre
 unset _alf_manpath_post
 
 
+
 # ------------------------------------------------------------------------------
 # Set paths for nvm and rvm executables
 # ------------------------------------------------------------------------------
@@ -451,7 +324,7 @@ unset _alf_manpath_post
 # Init rvm
 # Zsh & RVM woes (rvm-prompt doesn't resolve)
 # http://stackoverflow.com/questions/6636066/zsh-rvm-woes-rvm-prompt-doesnt-resolve
-source "$HOME/.rvm/scripts/rvm" 2>/dev/null
+# source "$HOME/.rvm/scripts/rvm" 2>/dev/null
 
 
 
@@ -465,19 +338,40 @@ export ALF_CUSTOM_KEY_BINDINGS="$ALF_SRC_PLUGINS/key-bindings/init.zsh"
 
 
 
-# ------------------------------------------------------------------------------
-# Source Antigen and oh-my-zsh to get things started
-# ------------------------------------------------------------------------------
-source "$ADOTDIR/antigen.zsh"
+# A syntax sugar to avoid the `-` when calling alf commands. With this
+# function, you can write `_alf-update` as `alf update` and so on.
+# Borrowed from Antigen (https://github.com/zsh-users/antigen)
+alf() {
+  local cmd="$1"
+  if [[ $cmd == "--version" ]] || [[ $cmd == "-v" ]]; then
+    __alf-version --get
+    return
+  elif [[ -z "$cmd" ]]; then
+    echo 'Alf: Please give a command to run.' >&2
+    return 1
+  fi
+  shift
+
+  if functions "_alf-$cmd" > /dev/null; then
+    "_alf-$cmd" "$@"
+  else
+    echo "Alf: Unknown command: $cmd" >&2
+  fi
+}
 
 
+
 # ------------------------------------------------------------------------------
-# Make these aliases, plugins, and functions available in all shells
+# Setup autocompletion for _alf-* functions
+# Borrowed from Antigen (https://github.com/zsh-users/antigen)
 # ------------------------------------------------------------------------------
-source "$ALF_SRC_PLUGINS/utilities/init.zsh" 2>/dev/null
-source "$ALF_SRC_PLUGINS/system/init.zsh" 2>/dev/null
-source "$ALF_SRC_PLUGINS/sublime/init.zsh" 2>/dev/null
-source "$ALF_SRC_PLUGINS/sugar/init.zsh" 2>/dev/null
-if [[ -n $PLATFORM_IS_CYGWIN ]]; then
-  source "$ALF_SRC_PLUGINS/cygwin-gem/init.zsh" 2>/dev/null
-fi
+_alf-apply() {
+  # Setup alf's own completion.
+  compdef __alf-exec-compadd alf
+}
+
+# Setup alf's autocompletion
+__alf-exec-compadd() {
+  eval "compadd \
+    $(echo $(print -l ${(k)functions} | grep "^_alf-" | sed "s/_alf-//g"))"
+}
