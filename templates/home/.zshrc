@@ -13,6 +13,20 @@
 # ------------------------------------------------------------------------------
 
 
+
+# ------------------------------------------------------------------------------
+# Set paths for nvm and rvm executables
+# ------------------------------------------------------------------------------
+# Init nvm
+source "$HOME/.nvm/nvm.sh" 2>/dev/null
+
+# Init rvm
+# Zsh & RVM woes (rvm-prompt doesn't resolve)
+# http://stackoverflow.com/questions/6636066/zsh-rvm-woes-rvm-prompt-doesnt-resolve
+source "$HOME/.rvm/scripts/rvm" 2>/dev/null
+
+
+
 # ------------------------------------------------------------------------------
 # Define plugins to load into oh-my-zsh
 # ------------------------------------------------------------------------------

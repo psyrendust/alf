@@ -316,19 +316,6 @@ unset _alf_manpath_post
 
 
 # ------------------------------------------------------------------------------
-# Set paths for nvm and rvm executables
-# ------------------------------------------------------------------------------
-# Init nvm
-# source "$HOME/.nvm/nvm.sh" 2>/dev/null
-
-# Init rvm
-# Zsh & RVM woes (rvm-prompt doesn't resolve)
-# http://stackoverflow.com/questions/6636066/zsh-rvm-woes-rvm-prompt-doesnt-resolve
-# source "$HOME/.rvm/scripts/rvm" 2>/dev/null
-
-
-
-# ------------------------------------------------------------------------------
 # Set the location of Alf's aliases and keybindings that will be loaded
 # in ~/.zlogin. This can later be overridden in a users custom ~/.zshrcwork
 # or ~/.zshrcuser file.
