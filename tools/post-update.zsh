@@ -28,9 +28,9 @@ _alf-fn-symlink-config() {
       ln -sf "$ALF_HOST/config" "$ALF_CONFIG"
     fi
     # Symlink our repos folder to our host
-    if [[ ! -d "$ADOTDIR" ]] || [[ -z $(readlink -f "$ADOTDIR" | grep "/cygdrive/z") ]]; then
-      ln -sf "$ALF_HOST/antigen" "$ADOTDIR"
-    fi
+    # if [[ ! -d "$ADOTDIR" ]] || [[ -z $(readlink -f "$ADOTDIR" | grep "/cygdrive/z") ]]; then
+    #   ln -sf "$ALF_HOST/antigen" "$ADOTDIR"
+    # fi
   fi
 }
 
