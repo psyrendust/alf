@@ -138,7 +138,9 @@ function _git-branch-delete() {
   done
   if [[ -n $has_option ]]; then
     shift
-    git branch | egrep "^  release" | xargs git branch -D
+    for branch in $(git branch | egrep "^[ ]+$@" | sed -e 's/ //g' | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g"); do
+      git branch -D $branch
+    done
   else
     git branch -D $@
   fi
