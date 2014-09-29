@@ -34,13 +34,10 @@ source "$ALF_CUSTOM_KEY_BINDINGS" 2>/dev/null
 # RUN A FEW THINGS AFTER OH MY ZSH HAS FINISHED INITIALIZING
 # ------------------------------------------------------------------------------
 if [[ -n $PLATFORM_IS_CYGWIN ]]; then
-  source "$ALF_SRC_PLUGINS/cygwin-gem/init.zsh" 2>/dev/null
   # Install gem helper aliases in the background
-  {
-    if [[ -n "$(which ruby 2>/dev/null)" ]]; then
-      _gem-alias "install"
-    fi
-  } &!
+  if [[ -n "$(which ruby 2>/dev/null)" ]]; then
+    source "$ALF_SRC_PLUGINS/cygwin-gem/init.zsh" 2>/dev/null
+  fi
 
   # If we are using Cygwin and ZSH_THEME is Pure, then replace the prompt
   # character to something that works in Windows
