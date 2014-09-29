@@ -128,9 +128,11 @@ if [[ ! -n $ALF_DISABLE_AUTO_UPDATE ]]; then
   if [[ ${alf_au_last_epoch_diff} -gt $ALF_UPDATE_DAYS ]]; then
     # Run antigen self-update then update all bundles
     # --------------------------------------------------------------------------
-    printf '\n\033[0;32m%s\033[0m' "Executing antigen updates: "; \
+    printf '\n\033[0;32m%s\033[0m' "Executing antigen selfupdate: "; \
     typeset -a _repos; \
     antigen selfupdate | while read -r line; do printf '\033[0;32m▍\033[0m'; done; \
+    printf '\n'
+    printf '\n\033[0;32m%s\033[0m' "Executing antigen update: "; \
     antigen update | while read -r line; do printf '\033[0;32m▍\033[0m'; done;
     printf '\n'
 
@@ -144,7 +146,7 @@ if [[ ! -n $ALF_DISABLE_AUTO_UPDATE ]]; then
   fi
   # Run any post-update scripts if they exist
   # ----------------------------------------------------------------------------
-  run-once
+  # run-once
   unset alf_au_last_epoch_diff
 
 fi
