@@ -111,31 +111,13 @@ __alf-version() {
       cd "$ALF_SRC"
       echo "$(git $@)"
     }
-    # Gets the name of the current local git branch
-    _alf_helper_get_alf_current_branch() {
-      local ref
-      ref=$(command cd "$ALF_SRC" && git symbolic-ref HEAD 2> /dev/null) || \
-      ref=$(command cd "$ALF_SRC" && git rev-parse --short HEAD 2> /dev/null) || return
-      echo "${ref#refs/heads/}"
-    }
-    local version version_tag version_commit version_sha version_date version_string version_prefix
-    if [[ -n $(_alf_helper_get_alf_current_branch | grep "master") ]]; then
-      # Get the tag number (eg. v0.1.4)
-      version_tag=$(_alf_helper_git describe --tags 2>&1)
-      # Get the total number of commits (eg. 248)
-      version_commit=$(_alf_helper_git shortlog | grep -E '^[ ]+\w+' | wc -l)
-      # Get the latest sha (eg. g5840656)
-      version_sha=$(_alf_helper_git log --pretty=format:'%h' -n 1)
-    else
-      # Get the version string from git (eg. v0.1.4-248-g5840656)
-      version=$(_alf_helper_git describe --long 2>&1)
-      # Get the tag number (eg. v0.1.4)
-      version_tag=$(echo $version | cut -d- -f 1)
-      # Get the total number of commits (eg. 248)
-      version_commit=$(echo $version | cut -d- -f 2)
-      # Get the latest sha (eg. g5840656)
-      version_sha=$(echo $version | cut -d- -f 3)
-    fi
+    local version_tag version_commit version_sha version_date version_string version_prefix
+    # Get the tag number (eg. v0.1.4)
+    version_tag=$(_alf_helper_git describe --abbrev=0 2>&1)
+    # Get the total number of commits (eg. 248)
+    version_commit=$(_alf_helper_git shortlog | grep -E '^[ ]+\w+' | wc -l)
+    # Get the latest sha (eg. g5840656)
+    version_sha=$(_alf_helper_git log --pretty=format:'%h' -n 1)
     # Get the date of the latest commit (eg. 2014-03-03)
     version_date=$(echo $(_alf_helper_git show -s --format=%ci | cut -d\  -f 1))
     # Save version info (eg. v0.1.4p244 (2014-03-03 revision g67cfc97))
