@@ -120,8 +120,10 @@ if [[ ! -n $ALF_DISABLE_AUTO_UPDATE ]]; then
 
   # Load up the last run for auto-update
   # ----------------------------------------------------------------------------
-  alf epoch --set
-  alf_au_last_epoch_diff=$(( $(alf epoch --get) - $(alf epoch --get "auto-update") ))
+  _alf-epoch --set
+  alf_au_last_epoch_default=$(_alf-epoch --get)
+  alf_au_last_epoch_auto_update=$(_alf-epoch --get "auto-update")
+  alf_au_last_epoch_diff=$(( $alf_au_last_epoch_default - $alf_au_last_epoch_auto_update ))
 
   # See if we ran this today already
   # ----------------------------------------------------------------------------
@@ -141,11 +143,13 @@ if [[ ! -n $ALF_DISABLE_AUTO_UPDATE ]]; then
 
     # Update last epoch
     # --------------------------------------------------------------------------
-    alf epoch --set "auto-update"
+    _alf-epoch --set "auto-update"
   fi
   # Run any post-update scripts if they exist
   # ----------------------------------------------------------------------------
   # run-once
+  unset alf_au_last_epoch_default
+  unset alf_au_last_epoch_auto_update
   unset alf_au_last_epoch_diff
 
 fi
