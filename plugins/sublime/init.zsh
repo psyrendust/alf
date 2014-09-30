@@ -43,7 +43,7 @@ sbl() {
   if  [[ -n $PLATFORM_IS_MAC ]]; then
     subl $@
   elif  [[ -n $PLATFORM_IS_CYGWIN ]]; then
-    cygstart subl $(cygpath -w $@)
+    cygstart /usr/local/bin/subl $(cygpath -w $@)
   elif [[ -n $PLATFORM_IS_LINUX ]]; then
     if [ -f '/usr/bin/sublime_text' ]; then
       nohup /usr/bin/sublime_text $@ > /dev/null &
