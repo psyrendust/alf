@@ -38,7 +38,7 @@ The project is managed via [Git][6]. It is highly recommended that you fork this
 Resources
 ---------
 
-The [Zsh Reference Card][10] and the [zsh-lovers][11] man page are indispensable.
+The [Zsh Reference Card][10] and the [zsh-lovers][11] man page are indispensable.  [awesome-zsh-plugins](https://github.com/unixorn/awesome-zsh-plugins) is a list of zsh plugins and themes that you may also find useful.
 
 Author
 ------
