@@ -263,13 +263,16 @@ if [[ -n $PLATFORM_IS_MAC ]]; then
 
   ppinfo "Checking for command line dev tools."
   if [[ ! -f "/Library/Developer/CommandLineTools/usr/bin/clang" ]]; then
-    ppemphasis "Installing the Command Line Tools (expect a GUI popup):"
-    sudo xcode-select --install
-    sleep 2
-    while [[ -n $(pgrep "Install Command Line Developer Tools") ]]; do
-      # Waiting for command line tools to finish installing
-      sleep 1
-    done
+    ppemphasis "Installing the Command Line Tools:"
+    # Unattended Install
+        # source: http://apple.stackexchange.com/questions/107307/how-can-i-install-the-command-line-tools-completely-from-the-command-line
+        touch /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress;
+        PROD=$(softwareupdate -l |
+            grep "\*.*Command Line" |
+            head -n 1 | awk -F"*" '{print $2}' |
+            sed -e 's/^ *//' |
+            tr -d '\n')
+        softwareupdate -i "$PROD" -v;
   fi
 
   ppemphasis "Checking for homebrew..."
