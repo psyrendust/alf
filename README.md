@@ -59,7 +59,7 @@ License
 [6]: http://git-scm.com
 [7]: https://github.com
 [8]: http://gitimmersion.com
-[9]: http://gitref.org
+[9]: https://coddy.tech/git-commands
 [10]: http://www.bash2zsh.com/zsh_refcard/refcard.pdf
 [11]: http://grml.org/zsh/zsh-lovers.html
 [12]: http://i.imgur.com/nBEEZ.png "sorin theme"
